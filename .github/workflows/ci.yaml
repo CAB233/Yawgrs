@@ -5,7 +5,8 @@ on:
     branches:
       - main
   schedule:
-    - cron: "45 11 * * *"
+    # At 06:06 UTC on Monday
+    - cron: "6 6 * * 1"
 env: 
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   SING_BOX_VERSION: 1.12.8
@@ -13,58 +14,48 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
-      - name: 安装 sing-box-${{ env.SING_BOX_VERSION }}
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: '1.25'
+
+      - name: Install sing-box ${{ env.SING_BOX_VERSION }}
         run: |
           curl -fsSL https://sing-box.app/install.sh | sh -s -- --version "${{ env.SING_BOX_VERSION }}"
           sing-box version
 
-      - name: 安装 Deno
-        uses: denoland/setup-deno@v2
-        with:
-          deno-version: v2.x
-
-      - name: 准备构建环境
+      - name: Build json rule-set
         run: |
-          mkdir -pv public
+          go run -v .
 
-      - name: 构建 json 格式规则集
-        run: |
-          deno task build
-
-      - name: 构建 srs 格式规则集
-        working-directory: public
+      - name: Build srs rule-set
+        working-directory: rule-set
         run: |
           for i in *.json; do
-            echo "[INFO] 编译 $i"
+            echo "[INFO] compile $i"
             sing-box rule-set compile "$i"
           done
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: build-artifact-${{ github.sha }}-${{ github.run_number }}
-          path: public
-          if-no-files-found: error
-          retention-days: 1
-          compression-level: 4
-          include-hidden-files: false
+      - name: Git push assets to "release" branch
+        working-directory: rule-set
+        run: |
+          git init
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b release
+          git add .
+          git commit -m "Update rule-set"
+          git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
+          git push -f -u origin release
 
-  upload_to_cloudflare_r2:
-    needs: build
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: build-artifact-${{ github.sha }}-${{ github.run_number }}
-          path: public
-
-      - uses: ryand56/r2-upload-action@latest
-        with:
-          r2-account-id: ${{ secrets.R2_ACCOUNT_ID }}
-          r2-access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
-          r2-secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          r2-bucket: ${{ secrets.R2_BUCKET }}
-          source-dir: public
-          destination-dir: ruleset
-          keep-file-fresh: false
+      - name: Purge jsdelivr CDN
+        working-directory: rule-set
+        run: |
+          for file in $(ls); do
+            curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@release/${file}"
+          done
