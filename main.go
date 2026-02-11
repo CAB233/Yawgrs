@@ -234,10 +234,6 @@ func generate(release *github.RepositoryRelease, ruleSetOutput string) error {
 	return nil
 }
 
-func setActionOutput(name string, content string) {
-	os.Stdout.WriteString("::set-output name=" + name + "::" + content + "\n")
-}
-
 func release(source string, destination string, ruleSetOutput string) error {
 	sourceRelease, err := fetch(source)
 	if err != nil {
@@ -249,7 +245,6 @@ func release(source string, destination string, ruleSetOutput string) error {
 	} else {
 		if os.Getenv("NO_SKIP") != "true" && strings.Contains(*destinationRelease.Name, *sourceRelease.Name) {
 			log.Info("already latest")
-			setActionOutput("skip", "true")
 			return nil
 		}
 	}
@@ -257,7 +252,6 @@ func release(source string, destination string, ruleSetOutput string) error {
 	if err != nil {
 		return err
 	}
-	setActionOutput("tag", *sourceRelease.Name)
 	return nil
 }
 
