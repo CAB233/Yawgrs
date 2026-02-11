@@ -52,10 +52,3 @@ jobs:
           git commit -m "Update rule-set"
           git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git push -f -u origin release
-
-      - name: Purge jsdelivr CDN
-        working-directory: rule-set
-        run: |
-          for file in $(ls); do
-            curl -i "https://purge.jsdelivr.net/gh/${{ github.repository }}@release/${file}"
-          done
