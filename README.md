@@ -1,14 +1,16 @@
-Enhanced geosite rule sets for [sing-box](https://sing-box.sagernet.org/), ported from [Loyalsoldier/v2ray-rules-dat](https://github.com/Loyalsoldier/v2ray-rules-dat).
+# Yawgrs
 
-## Usage
+Yet anothor rule-set for [sing-box](https://sing-box.sagernet.org/).
 
-> **Note**: This repository only contains domain rules. For IP rules, see [Loyalsoldier/geoip](https://github.com/Loyalsoldier/geoip)
+## Rule-set
 
-Each rule set is available in two formats in `release` branch:
-- `.srs` - Binary format (recommended)
-- `.json` - JSON format
+| Branch  | Upstream Source                                     | Modifications |
+|---------|-----------------------------------------------------|---------------|
+| `release`  | [Loyalsoldier/v2ray-rules-dat](https://github.com/Loyalsoldier/v2ray-rules-dat) | Convert to sing-box srs format |
+| `release2` | [SukkaLab/ruleset.skk.moe](https://github.com/SukkaLab/ruleset.skk.moe) | Merge `domainset` and `non_ip`  |
 
 ## Acknowledgements
 
-- Forked from [lyc8503/sing-box-rules](https://github.com/lyc8503/sing-box-rules)
-- Geosite data from [Loyalsoldier/v2ray-rules-dat](https://github.com/Loyalsoldier/v2ray-rules-dat)
+- [Loyalsoldier/v2ray-rules-dat](https://github.com/Loyalsoldier/v2ray-rules-dat)
+- [SukkaLab/ruleset.skk.moe](https://github.com/SukkaLab/ruleset.skk.moe)
+- [lyc8503/sing-box-rules](https://github.com/lyc8503/sing-box-rules)
