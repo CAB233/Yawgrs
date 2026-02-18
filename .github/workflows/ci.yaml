@@ -7,11 +7,11 @@ on:
   schedule:
     # At 06:06 UTC on Monday
     - cron: "6 6 * * 1"
-env: 
+env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   SING_BOX_VERSION: 1.12.8
 jobs:
-  build:
+  v2ray-rules-dat:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
@@ -22,7 +22,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v6
         with:
-          go-version: '1.25'
+          go-version-file: "go.mod"
 
       - name: Install sing-box ${{ env.SING_BOX_VERSION }}
         run: |
@@ -52,3 +52,48 @@ jobs:
           git commit -m "Update rule-set"
           git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git push -f -u origin release
+
+  sukka-ruleset:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          repository: 'SukkaLab/ruleset.skk.moe'
+          fetch-depth: 0
+          sparse-checkout: |
+            sing-box/domainset
+            sing-box/non_ip
+
+      - name: Install sing-box ${{ env.SING_BOX_VERSION }}
+        run: |
+          curl -fsSL https://sing-box.app/install.sh | sh -s -- --version "${{ env.SING_BOX_VERSION }}"
+          sing-box version
+
+      - name: Build srs rule-set
+        run: |
+          cd sing-box/domainset
+          for i in *.json; do
+            echo "[INFO] compile $i"
+            sing-box rule-set compile "$i"
+          done
+          rm -f *.json
+
+          cd ../non_ip
+          for i in *.json; do
+            echo "[INFO] compile $i"
+            sing-box rule-set compile "$i"
+          done
+          rm -f *.json
+
+      - name: Git push assets to "release2" branch
+        working-directory: sing-box
+        run: |
+          git init
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b release2
+          git add .
+          git commit -m "Update rule-set"
+          git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
+          git push -f -u origin release2
