@@ -1,2 +1,4 @@
 rule-set/
+prebuild/
+public/
 AGENTS.md

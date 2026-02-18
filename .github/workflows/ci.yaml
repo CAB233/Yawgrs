@@ -59,8 +59,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
         with:
+          sparse-checkout: merge.sh
+
+      - name: Checkout ruleset
+        uses: actions/checkout@v6
+        with:
           repository: 'SukkaLab/ruleset.skk.moe'
-          fetch-depth: 0
+          path: prebuild
           sparse-checkout: |
             sing-box/domainset
             sing-box/non_ip
@@ -70,24 +75,21 @@ jobs:
           curl -fsSL https://sing-box.app/install.sh | sh -s -- --version "${{ env.SING_BOX_VERSION }}"
           sing-box version
 
-      - name: Build srs rule-set
+      - name: Merge rule-set
         run: |
-          cd sing-box/domainset
-          for i in *.json; do
-            echo "[INFO] compile $i"
-            sing-box rule-set compile "$i"
-          done
-          rm -f *.json
+          chmod +x merge.sh
+          ./merge.sh
 
-          cd ../non_ip
+      - name: Build srs rule-set
+        working-directory: public
+        run: |
           for i in *.json; do
             echo "[INFO] compile $i"
             sing-box rule-set compile "$i"
           done
-          rm -f *.json
 
       - name: Git push assets to "release2" branch
-        working-directory: sing-box
+        working-directory: public
         run: |
           git init
           git config --local user.name "github-actions[bot]"
