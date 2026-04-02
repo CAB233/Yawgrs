@@ -9,32 +9,32 @@ on:
     - cron: "6 6 * * 1"
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  SING_BOX_VERSION: 1.12.8
+  DOMI-CLI_VERSION: 0.1.7
+  SING_BOX_VERSION: 1.13.0
 jobs:
   v2ray-rules-dat:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
 
-      - name: Setup Go
-        uses: actions/setup-go@v6
-        with:
-          go-version-file: "go.mod"
-
-      - name: Install sing-box ${{ env.SING_BOX_VERSION }}
+      - name: Install dependencies
         run: |
+          curl -fsSL https://github.com/CAB233/domi-cli/releases/download/v${{ env.DOMI-CLI_VERSION }}/domi-cli-x86_64-unknown-linux-gnu -o domi-cli
+          sudo install -Dvm755 domi-cli -t /usr/bin/
+          domi-cli --version
+
           curl -fsSL https://sing-box.app/install.sh | sh -s -- --version "${{ env.SING_BOX_VERSION }}"
           sing-box version
 
       - name: Build json rule-set
         run: |
-          go run -v .
+          mkdir -v dist
+          cd dist
+          domi-cli --config ../config.toml
 
       - name: Build srs rule-set
-        working-directory: rule-set
+        working-directory: dist
         run: |
           for i in *.json; do
             echo "[INFO] compile $i"
@@ -42,16 +42,23 @@ jobs:
           done
 
       - name: Git push assets to "release" branch
-        working-directory: rule-set
         run: |
-          git init
+          git clone --filter=tree:0 --no-tags "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" repo
+          cd repo
+          git config --local push.default matching
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout -b release
-          git add .
-          git commit -m "Update rule-set"
-          git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
-          git push -f -u origin release
+          git checkout release
+          rm -rf ./*
+          find ../dist/ -type f -not -name "*.json" -and -not -name "*.srs" -delete
+          cp ../dist/* ./
+          git add --all .
+          if git diff --quiet --staged; then
+            echo "No changes, skipping commit"
+          else
+            git commit -m "Update rule-set"
+            git push -f -u origin HEAD:release
+          fi
 
   sukka-ruleset:
     runs-on: ubuntu-24.04
@@ -81,7 +88,7 @@ jobs:
           ./merge.sh
 
       - name: Build srs rule-set
-        working-directory: public
+        working-directory: dist
         run: |
           for i in *.json; do
             echo "[INFO] compile $i"
@@ -89,13 +96,20 @@ jobs:
           done
 
       - name: Git push assets to "release2" branch
-        working-directory: public
         run: |
-          git init
+          git clone --filter=tree:0 --no-tags "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" repo
+          cd repo
+          git config --local push.default matching
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout -b release2
-          git add .
-          git commit -m "Update rule-set"
-          git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
-          git push -f -u origin release2
+          git checkout release2
+          rm -rf ./*
+          find ../dist/ -type f -not -name "*.json" -and -not -name "*.srs" -delete
+          cp ../dist/* ./
+          git add --all .
+          if git diff --quiet --staged; then
+            echo "No changes, skipping commit"
+          else
+            git commit -m "Update rule-set"
+            git push -f -u origin HEAD:release2
+          fi

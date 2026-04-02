@@ -1,4 +1,5 @@
-rule-set/
-prebuild/
-public/
+/.codex
+/ruleset
+
+*.dat
 AGENTS.md

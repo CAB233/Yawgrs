@@ -1,0 +1,28 @@
+[__config__]
+url = "https://github.com/v2fly/domain-list-community/releases/latest/download/dlc.dat"
+input = "dlc.dat"
+version = 2
+
+[geosite-category-ads-all]
+url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
+input = "geosite.dat"
+bases = ["category-ads-all"]
+
+[geosite-geolocation-cn]
+bases = ["geolocation-cn"]
+attr_filters = ["lacks:!cn", "lacks:ads"]
+
+["base-!cn"]
+bases = ["geolocation-!cn"]
+attr_filters = ["lacks:cn", "lacks:ads"]
+internal = true
+
+["geosite-geolocation-!cn"]
+depends = ["base-!cn"]
+bases = ["google", "microsoft"]
+
+[geosite-private]
+bases = ["private"]
+
+[geosite-connectivity-check]
+bases = ["connectivity-check"]

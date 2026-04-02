@@ -4,7 +4,7 @@ set -euo pipefail
 
 DOMAINSET_DIR="prebuild/sing-box/domainset"
 NON_IP_DIR="prebuild/sing-box/non_ip"
-OUTPUT_DIR="public"
+OUTPUT_DIR="dist"
 
 mkdir -p "$OUTPUT_DIR"
 
