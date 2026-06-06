@@ -76,6 +76,7 @@ jobs:
           sparse-checkout: |
             sing-box/domainset
             sing-box/non_ip
+            sing-box/ip
 
       - name: Install sing-box ${{ env.SING_BOX_VERSION }}
         run: |
@@ -83,9 +84,7 @@ jobs:
           sing-box version
 
       - name: Merge rule-set
-        run: |
-          chmod +x merge.sh
-          ./merge.sh
+        run: bash merge.sh
 
       - name: Build srs rule-set
         working-directory: dist

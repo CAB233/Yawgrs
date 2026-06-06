@@ -61,3 +61,30 @@ for file in "$NON_IP_DIR"/*.json; do
     cp "$file" "$OUTPUT_DIR/$name"
   fi
 done
+
+IP_DIR="prebuild/sing-box/ip"
+IPV4_FILE="$IP_DIR/china_ip.json"
+IPV6_FILE="$IP_DIR/china_ip_ipv6.json"
+IP_OUTPUT="$OUTPUT_DIR/china-ip.json"
+
+IP_MERGE='
+{
+  version: (.[0].version // .[1].version // 2),
+  rules: [
+    {
+      ip_cidr: ([.[].rules[0].ip_cidr[]] | unique)
+    }
+  ]
+}
+'
+
+if [[ -f "$IPV4_FILE" ]] && [[ -f "$IPV6_FILE" ]]; then
+  echo "[INFO] merge china_ip and china_ip_ipv6"
+  jq -s "$IP_MERGE" "$IPV4_FILE" "$IPV6_FILE" > "$IP_OUTPUT"
+elif [[ -f "$IPV4_FILE" ]]; then
+  echo "[INFO] extract ip_cidr from china_ip.json -> china-ip.json"
+  jq '{version, rules: [{ip_cidr: .rules[0].ip_cidr}]}' "$IPV4_FILE" > "$IP_OUTPUT"
+elif [[ -f "$IPV6_FILE" ]]; then
+  echo "[INFO] extract ip_cidr from china_ip_ipv6.json -> china-ip.json"
+  jq '{version, rules: [{ip_cidr: .rules[0].ip_cidr}]}' "$IPV6_FILE" > "$IP_OUTPUT"
+fi
