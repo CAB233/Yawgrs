@@ -8,9 +8,8 @@ on:
     # At 06:06 UTC on Monday
     - cron: "6 6 * * 1"
 env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   DOMI-CLI_VERSION: 0.1.7
-  SING_BOX_VERSION: 1.13.0
+  SING_BOX_VERSION: 1.13.13
 jobs:
   v2ray-rules-dat:
     runs-on: ubuntu-24.04
@@ -24,7 +23,7 @@ jobs:
           sudo install -Dvm755 domi-cli -t /usr/bin/
           domi-cli --version
 
-          curl -fsSL https://sing-box.app/install.sh | sh -s -- --version "${{ env.SING_BOX_VERSION }}"
+          GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} curl -fsSL https://sing-box.app/install.sh | sh -s -- --version "${{ env.SING_BOX_VERSION }}"
           sing-box version
 
       - name: Build json rule-set
@@ -111,4 +110,43 @@ jobs:
           else
             git commit -m "Update rule-set"
             git push -f -u origin HEAD:release2
+          fi
+
+  ads-ruleset:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Install dependencies
+        run: |
+          GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} curl -fsSL https://sing-box.app/install.sh | sh -s -- --version "${{ env.SING_BOX_VERSION }}"
+          sing-box version
+
+      - name: Get DNS filter
+        run: |
+          curl -LSso dist/adguard-dns-filter.txt --create-dirs "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt"
+
+      - name: Build srs rule-set
+        working-directory: dist
+        run: |
+          for i in *.txt; do
+            echo "[INFO] compile $i"
+            sing-box rule-set convert -t adguard "$i"
+          done
+
+      - name: Git push assets to "release3" branch
+        run: |
+          git clone --filter=tree:0 --no-tags "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" repo
+          cd repo
+          git config --local push.default matching
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout release3
+          rm -rf ./*
+          find ../dist/ -type f -not -name "*.srs" -delete
+          cp ../dist/* ./
+          git add --all .
+          if git diff --quiet --staged; then
+            echo "No changes, skipping commit"
+          else
+            git commit -m "Update rule-set"
+            git push -f -u origin HEAD:release3
           fi
