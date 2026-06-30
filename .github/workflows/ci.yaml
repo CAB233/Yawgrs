@@ -77,9 +77,9 @@ jobs:
             sing-box/non_ip
             sing-box/ip
 
-      - name: Install sing-box ${{ env.SING_BOX_VERSION }}
+      - name: Install dependencies
         run: |
-          curl -fsSL https://sing-box.app/install.sh | sh -s -- --version "${{ env.SING_BOX_VERSION }}"
+          GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} curl -fsSL https://sing-box.app/install.sh | sh -s -- --version "${{ env.SING_BOX_VERSION }}"
           sing-box version
 
       - name: Merge rule-set
@@ -112,7 +112,7 @@ jobs:
             git push -f -u origin HEAD:release2
           fi
 
-  ads-ruleset:
+  filter-ruleset:
     runs-on: ubuntu-24.04
     steps:
       - name: Install dependencies
