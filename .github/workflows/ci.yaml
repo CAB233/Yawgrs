@@ -120,9 +120,16 @@ jobs:
           GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} curl -fsSL https://sing-box.app/install.sh | sh -s -- --version "${{ env.SING_BOX_VERSION }}"
           sing-box version
 
-      - name: Get DNS filter
+      - name: Get filters
         run: |
           curl -LSso dist/adguard-dns-filter.txt --create-dirs "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt"
+          curl -LSso dist/l4d2-rpglist-tmp.json --create-dirs "https://github.com/yxnan/block-l4d2-rpg-servers/releases/download/latest/rpglist.json"
+
+      - name: Prepare rule-set
+        working-directory: dist
+        run: |
+          jq '{ version: 3, rules: [ { ip_cidr: [.data[].raddr+"/32"] } ] }' l4d2-rpglist-tmp.json > l4d2-rpglist.json
+          rm l4d2-rpglist-tmp.json
 
       - name: Build srs rule-set
         working-directory: dist
@@ -130,6 +137,11 @@ jobs:
           for i in *.txt; do
             echo "[INFO] compile $i"
             sing-box rule-set convert -t adguard "$i"
+          done
+
+          for i in *.json; do
+            echo "[INFO] compile $i"
+            sing-box rule-set compile "$i"
           done
 
       - name: Git push assets to "release3" branch
