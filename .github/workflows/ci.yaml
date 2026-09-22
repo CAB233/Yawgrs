@@ -8,11 +8,11 @@ on:
     # At 06:06 UTC on Monday
     - cron: "6 6 * * 1"
 env:
-  DOMI-CLI_VERSION: 0.1.7
-  SING_BOX_VERSION: 1.13.13
+  DOMI-CLI_VERSION: 0.1.8
+  SING_BOX_VERSION: 1.14.1
 jobs:
   v2ray-rules-dat:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -60,7 +60,7 @@ jobs:
           fi
 
   sukka-ruleset:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -113,7 +113,7 @@ jobs:
           fi
 
   filter-ruleset:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Install dependencies
         run: |
