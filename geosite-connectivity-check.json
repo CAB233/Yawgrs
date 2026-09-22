@@ -1,6 +1,20 @@
 {
+  "version": 2,
   "rules": [
     {
+      "domain_suffix": [
+        "captive.apple.com",
+        "cp.cloudflare.com",
+        "detectportal.firefox.com",
+        "firefox-portal-detection.com",
+        "ipv6check-http.steamserver.net",
+        "ipv6check-udp.steamserver.net",
+        "kuketz.de",
+        "msftconnecttest.com",
+        "msftncsi.com",
+        "network-test.debian.org",
+        "test.steampowered.com"
+      ],
       "domain": [
         "conn1.oppomobile.com",
         "conn2.oppomobile.com",
@@ -19,21 +33,7 @@
         "www.gstatic.com",
         "www.qualcomm.cn",
         "www.qualcomm.com"
-      ],
-      "domain_suffix": [
-        "captive.apple.com",
-        "cp.cloudflare.com",
-        "detectportal.firefox.com",
-        "firefox-portal-detection.com",
-        "ipv6check-http.steamserver.net",
-        "ipv6check-udp.steamserver.net",
-        "kuketz.de",
-        "msftconnecttest.com",
-        "msftncsi.com",
-        "network-test.debian.org",
-        "test.steampowered.com"
       ]
     }
-  ],
-  "version": 2
+  ]
 }

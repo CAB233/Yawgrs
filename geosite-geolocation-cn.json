@@ -1,39 +1,7 @@
 {
+  "version": 2,
   "rules": [
     {
-      "domain": [
-        "account-cn.alibabacloud.com",
-        "api.alibabacloud.com",
-        "api.blipsandchitz.me",
-        "cn.alibabacloud.com",
-        "ctdsb.clouddiffuse.xyz",
-        "end-api.shallow.ink",
-        "end.shallow.ink",
-        "izattime.qcomgeo2.com",
-        "ntp.aliyun.com",
-        "ntp.tencent.com",
-        "ntp1.aliyun.com",
-        "ntp1.tencent.com",
-        "ntp2.aliyun.com",
-        "ntp2.tencent.com",
-        "ntp3.aliyun.com",
-        "ntp3.tencent.com",
-        "ntp4.aliyun.com",
-        "ntp4.tencent.com",
-        "ntp5.aliyun.com",
-        "ntp5.tencent.com",
-        "ntp6.aliyun.com",
-        "ntp7.aliyun.com",
-        "status.alibabacloud.com",
-        "time.izatcloud.net",
-        "time.xtracloud.net",
-        "xtratime.qcomgeo2.com"
-      ],
-      "domain_regex": [
-        ".+\\.awsdns-cn-[0-9][0-9]\\.(biz|com|net|top)$",
-        ".+\\.awsdns-cn-[0-9][a-e0-9]\\.cn$",
-        "^.+-mihayo\\.akamaized\\.net$"
-      ],
       "domain_suffix": [
         "0033.cn",
         "00cdn.com",
@@ -5811,6 +5779,7 @@
         "sinopecnews.com.cn",
         "sinopecsales.com",
         "sipeed.com",
+        "sjfls6.com",
         "sjwyx.com",
         "skillhub.cn",
         "skimit.net",
@@ -7818,8 +7787,40 @@
         "zztfly.com",
         "zzzcaculator.top",
         "zzzmap.com"
+      ],
+      "domain": [
+        "account-cn.alibabacloud.com",
+        "api.alibabacloud.com",
+        "api.blipsandchitz.me",
+        "cn.alibabacloud.com",
+        "ctdsb.clouddiffuse.xyz",
+        "end-api.shallow.ink",
+        "end.shallow.ink",
+        "izattime.qcomgeo2.com",
+        "ntp.aliyun.com",
+        "ntp.tencent.com",
+        "ntp1.aliyun.com",
+        "ntp1.tencent.com",
+        "ntp2.aliyun.com",
+        "ntp2.tencent.com",
+        "ntp3.aliyun.com",
+        "ntp3.tencent.com",
+        "ntp4.aliyun.com",
+        "ntp4.tencent.com",
+        "ntp5.aliyun.com",
+        "ntp5.tencent.com",
+        "ntp6.aliyun.com",
+        "ntp7.aliyun.com",
+        "status.alibabacloud.com",
+        "time.izatcloud.net",
+        "time.xtracloud.net",
+        "xtratime.qcomgeo2.com"
+      ],
+      "domain_regex": [
+        ".+\\.awsdns-cn-[0-9][0-9]\\.(biz|com|net|top)$",
+        ".+\\.awsdns-cn-[0-9][a-e0-9]\\.cn$",
+        "^.+-mihayo\\.akamaized\\.net$"
       ]
     }
-  ],
-  "version": 2
+  ]
 }
