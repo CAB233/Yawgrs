@@ -1,0 +1,9 @@
+name = "awavenue"
+description = "众多优秀广告规则的上游、开源社区中最棒的广告过滤器之一"
+
+[source.filter]
+src = "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/AWAvenue-Ads-Rule.txt"
+sha256 = "SKIP"
+
+[build]
+type = "adguard"
