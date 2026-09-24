@@ -10,6 +10,14 @@
       "verified": false
     },
     {
+      "filename": "filter",
+      "id": "filter",
+      "package": "awavenue",
+      "sha256": "e63c0ba4d838883a683034f3cbcebe7e00c4d99fb6d10bb130b2283e819976e2",
+      "src": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/AWAvenue-Ads-Rule.txt",
+      "verified": false
+    },
+    {
       "filename": "list",
       "id": "list",
       "package": "rpglist",

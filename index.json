@@ -13,6 +13,18 @@
       "size": 4363295
     },
     {
+      "package": "awavenue",
+      "path": "awavenue/adguard-dns-filter.srs",
+      "sha256": "2b8544dcbd316134a0a6b7129b091757b809a5ad70d0cc98be2c9701ed966bc1",
+      "size": 9081
+    },
+    {
+      "package": "awavenue",
+      "path": "awavenue/adguard-dns-filter.txt",
+      "sha256": "e63c0ba4d838883a683034f3cbcebe7e00c4d99fb6d10bb130b2283e819976e2",
+      "size": 23211
+    },
+    {
       "package": "rpglist",
       "path": "rpglist/l4d2-rpglist.json",
       "sha256": "7dec50f81d3c320f16013e9a09e15be1c5f959b7d0403a8eb558b77a373f7de4",
