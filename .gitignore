@@ -1,5 +1,7 @@
 /.codex
 /ruleset
+/dist
+/.yawgrs-build-*
 
 *.dat
 AGENTS.md

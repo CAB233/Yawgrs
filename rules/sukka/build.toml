@@ -1,0 +1,9 @@
+name = "sukka"
+description = "SukkaLab sing-box rules merged by filename"
+
+[source.archive]
+src = "https://api.github.com/repos/SukkaLab/ruleset.skk.moe/tarball"
+sha256 = "SKIP"
+
+[build]
+type = "sukka"

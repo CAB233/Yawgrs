@@ -1,0 +1,27 @@
+name = "v2ray"
+description = "v2fly and Loyalsoldier geosite rule sets"
+
+[source.dlc]
+src = "https://github.com/v2fly/domain-list-community/releases/latest/download/dlc.dat"
+sha256 = "SKIP"
+rename = "dlc.dat"
+
+[source.geosite]
+src = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
+sha256 = "SKIP"
+rename = "geosite.dat"
+
+[source.config]
+src = "domi.toml"
+sha256 = "a44835cddb0d617c1ee7fbe2db5c47cad64eb33213616648f628932a1bb5ff40"
+rename = "domi.toml"
+
+[prepare]
+command = [
+  'cp -v "$SRCDIR/dlc.dat" "$BUILDDIR/dlc.dat"',
+  'cp -v "$SRCDIR/geosite.dat" "$BUILDDIR/geosite.dat"',
+  'cp -v "$SRCDIR/domi.toml" "$BUILDDIR/domi.toml"',
+]
+
+[build]
+type = "domi"

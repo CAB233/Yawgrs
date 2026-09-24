@@ -1,0 +1,14 @@
+name = "rpglist"
+description = "L4D2 RPG server IP rules"
+
+[source.list]
+src = "https://github.com/yxnan/block-l4d2-rpg-servers/releases/download/latest/rpglist.json"
+sha256 = "SKIP"
+
+[build]
+type = "json"
+source = "list"
+select = ".data[].raddr"
+target = "ip_cidr"
+transform = '. + "/32"'
+output = "l4d2-rpglist"

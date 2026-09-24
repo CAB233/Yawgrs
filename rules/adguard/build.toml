@@ -1,0 +1,9 @@
+name = "adguard"
+description = "AdGuard DNS filter"
+
+[source.filter]
+src = "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt"
+sha256 = "SKIP"
+
+[build]
+type = "adguard"

@@ -1,164 +1,91 @@
-name: CI
+name: Build rule packages
+
 on:
-  workflow_dispatch:
+  pull_request:
   push:
-    branches:
-      - main
+    branches: [main]
   schedule:
-    # At 06:06 UTC on Monday
     - cron: "6 6 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: artifacts-publish
+  cancel-in-progress: false
+
 env:
-  DOMI-CLI_VERSION: 0.1.8
-  SING_BOX_VERSION: 1.14.1
+  DOMI_CLI_VERSION: "0.1.8"
+  SING_BOX_VERSION: "1.14.1"
+
 jobs:
-  v2ray-rules-dat:
+  validate:
     runs-on: ubuntu-26.04
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Install dependencies
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+      - name: Validate packages and test isolation
         run: |
-          curl -fsSL https://github.com/CAB233/domi-cli/releases/download/v${{ env.DOMI-CLI_VERSION }}/domi-cli-x86_64-unknown-linux-gnu -o domi-cli
-          sudo install -Dvm755 domi-cli -t /usr/bin/
+          python scripts/rulebuild.py validate
+          python -m unittest discover -s tests -v
+
+  build:
+    if: github.event_name != 'pull_request'
+    needs: validate
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+      - name: Install build tools
+        run: |
+          curl -fsSL "https://github.com/CAB233/domi-cli/releases/download/v${DOMI_CLI_VERSION}/domi-cli-x86_64-unknown-linux-gnu" -o domi-cli
+          sudo install -Dvm755 domi-cli -t /usr/local/bin/
+          GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" curl -fsSL https://sing-box.app/install.sh | sh -s -- --version "${SING_BOX_VERSION}"
           domi-cli --version
-
-          GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} curl -fsSL https://sing-box.app/install.sh | sh -s -- --version "${{ env.SING_BOX_VERSION }}"
           sing-box version
-
-      - name: Build json rule-set
-        run: |
-          mkdir -v dist
-          cd dist
-          domi-cli --config ../config.toml
-
-      - name: Build srs rule-set
-        working-directory: dist
-        run: |
-          for i in *.json; do
-            echo "[INFO] compile $i"
-            sing-box rule-set compile "$i"
-          done
-
-      - name: Git push assets to "release" branch
-        run: |
-          git clone --filter=tree:0 --no-tags "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" repo
-          cd repo
-          git config --local push.default matching
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout release
-          rm -rf ./*
-          find ../dist/ -type f -not -name "*.json" -and -not -name "*.srs" -delete
-          cp ../dist/* ./
-          git add --all .
-          if git diff --quiet --staged; then
-            echo "No changes, skipping commit"
-          else
-            git commit -m "Update rule-set"
-            git push -f -u origin HEAD:release
-          fi
-
-  sukka-ruleset:
-    runs-on: ubuntu-26.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
+      - name: Build all packages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/rulebuild.py build --output dist
+      - uses: actions/upload-artifact@v6
         with:
-          sparse-checkout: merge.sh
+          name: rule-packages
+          path: dist/
+          if-no-files-found: error
 
-      - name: Checkout ruleset
-        uses: actions/checkout@v6
-        with:
-          repository: 'SukkaLab/ruleset.skk.moe'
-          path: prebuild
-          sparse-checkout: |
-            sing-box/domainset
-            sing-box/non_ip
-            sing-box/ip
-
-      - name: Install dependencies
-        run: |
-          GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} curl -fsSL https://sing-box.app/install.sh | sh -s -- --version "${{ env.SING_BOX_VERSION }}"
-          sing-box version
-
-      - name: Merge rule-set
-        run: bash merge.sh
-
-      - name: Build srs rule-set
-        working-directory: dist
-        run: |
-          for i in *.json; do
-            echo "[INFO] compile $i"
-            sing-box rule-set compile "$i"
-          done
-
-      - name: Git push assets to "release2" branch
-        run: |
-          git clone --filter=tree:0 --no-tags "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" repo
-          cd repo
-          git config --local push.default matching
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout release2
-          rm -rf ./*
-          find ../dist/ -type f -not -name "*.json" -and -not -name "*.srs" -delete
-          cp ../dist/* ./
-          git add --all .
-          if git diff --quiet --staged; then
-            echo "No changes, skipping commit"
-          else
-            git commit -m "Update rule-set"
-            git push -f -u origin HEAD:release2
-          fi
-
-  filter-ruleset:
+  publish:
+    if: github.event_name != 'pull_request'
+    needs: build
     runs-on: ubuntu-26.04
+    permissions:
+      contents: write
     steps:
-      - name: Install dependencies
+      - uses: actions/download-artifact@v7
+        with:
+          name: rule-packages
+          path: dist
+      - name: Publish one complete snapshot
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPOSITORY: ${{ github.repository }}
         run: |
-          GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} curl -fsSL https://sing-box.app/install.sh | sh -s -- --version "${{ env.SING_BOX_VERSION }}"
-          sing-box version
-
-      - name: Get filters
-        run: |
-          curl -LSso dist/adguard-dns-filter.txt --create-dirs "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt"
-          curl -LSso dist/l4d2-rpglist-tmp.json --create-dirs "https://github.com/yxnan/block-l4d2-rpg-servers/releases/download/latest/rpglist.json"
-
-      - name: Prepare rule-set
-        working-directory: dist
-        run: |
-          jq '{ version: 3, rules: [ { ip_cidr: [.data[].raddr+"/32"] } ] }' l4d2-rpglist-tmp.json > l4d2-rpglist.json
-          rm l4d2-rpglist-tmp.json
-
-      - name: Build srs rule-set
-        working-directory: dist
-        run: |
-          for i in *.txt; do
-            echo "[INFO] compile $i"
-            sing-box rule-set convert -t adguard "$i"
-          done
-
-          for i in *.json; do
-            echo "[INFO] compile $i"
-            sing-box rule-set compile "$i"
-          done
-
-      - name: Git push assets to "release3" branch
-        run: |
-          git clone --filter=tree:0 --no-tags "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" repo
-          cd repo
-          git config --local push.default matching
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout release3
-          rm -rf ./*
-          find ../dist/ -type f -not -name "*.json" -and -not -name "*.srs" -delete
-          cp ../dist/* ./
-          git add --all .
-          if git diff --quiet --staged; then
-            echo "No changes, skipping commit"
+          git init published
+          cd published
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${REPOSITORY}.git"
+          if git ls-remote --exit-code origin refs/heads/artifacts >/dev/null 2>&1; then
+            git fetch --depth=1 origin artifacts
+            git checkout -B artifacts FETCH_HEAD
           else
-            git commit -m "Update rule-set"
-            git push -f -u origin HEAD:release3
+            git checkout --orphan artifacts
+          fi
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf -- {} +
+          cp -a ../dist/. .
+          git add --all
+          if ! git diff --quiet --staged; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Update rule packages"
+            git push origin artifacts
           fi
