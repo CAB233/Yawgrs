@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "sources": [
+    {
+      "filename": "filter",
+      "id": "filter",
+      "package": "adguard",
+      "sha256": "2e21db10ec9f321d8000d013c365bab0f62c4375bfba6cb3fd5cbd44d9671c0b",
+      "src": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt",
+      "verified": false
+    },
+    {
+      "filename": "list",
+      "id": "list",
+      "package": "rpglist",
+      "sha256": "3065a95c3ce87bb97e74c261f84df405c04b7095814f4822e45351c7c753a0e5",
+      "src": "https://github.com/yxnan/block-l4d2-rpg-servers/releases/download/latest/rpglist.json",
+      "verified": false
+    },
+    {
+      "filename": "archive",
+      "id": "archive",
+      "package": "sukka",
+      "sha256": "5a09875cb3fc1ad489d5381e520101f5b9ccfbc81eb28e6b4a97f1489409a6fe",
+      "src": "https://api.github.com/repos/SukkaLab/ruleset.skk.moe/tarball",
+      "verified": false
+    },
+    {
+      "filename": "dlc.dat",
+      "id": "dlc",
+      "package": "v2ray",
+      "sha256": "ccfd5caee2947964da989f6b94cc3c96f068cba198b163f3ac64def70a0addb5",
+      "src": "https://github.com/v2fly/domain-list-community/releases/latest/download/dlc.dat",
+      "verified": false
+    },
+    {
+      "filename": "geosite.dat",
+      "id": "geosite",
+      "package": "v2ray",
+      "sha256": "224798ccfaf4fb09be31b63c0807b2969641a74350902c76926a6c0e9d3347ba",
+      "src": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat",
+      "verified": false
+    },
+    {
+      "filename": "domi.toml",
+      "id": "config",
+      "package": "v2ray",
+      "sha256": "a44835cddb0d617c1ee7fbe2db5c47cad64eb33213616648f628932a1bb5ff40",
+      "src": "domi.toml",
+      "verified": true
+    }
+  ]
+}

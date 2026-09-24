@@ -1,0 +1,617 @@
+{
+  "artifacts": [
+    {
+      "package": "adguard",
+      "path": "adguard/adguard-dns-filter.srs",
+      "sha256": "655877f4e7f6526a99fbaf6819e565cf1539dcb91feced62fd9ac05692fc26d5",
+      "size": 1605858
+    },
+    {
+      "package": "adguard",
+      "path": "adguard/adguard-dns-filter.txt",
+      "sha256": "2e21db10ec9f321d8000d013c365bab0f62c4375bfba6cb3fd5cbd44d9671c0b",
+      "size": 4363295
+    },
+    {
+      "package": "rpglist",
+      "path": "rpglist/l4d2-rpglist.json",
+      "sha256": "7dec50f81d3c320f16013e9a09e15be1c5f959b7d0403a8eb558b77a373f7de4",
+      "size": 904
+    },
+    {
+      "package": "rpglist",
+      "path": "rpglist/l4d2-rpglist.srs",
+      "sha256": "aaf51ca7366332cdaaa3bf4bdc29b0241673c76c69d095c97ca1b535c41ca071",
+      "size": 181
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/ai.json",
+      "sha256": "92dbfcdb2ea009353d5e515b7bfcbf27e2cc4cdcd2830a7a208681d01e23e651",
+      "size": 1642
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/ai.srs",
+      "sha256": "5487773c14ac675f10add50a8bc5a343fc8144826824e1a2eaf54ac60505c81a",
+      "size": 577
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/apple_cdn.json",
+      "sha256": "601a3d6c052b2a16e73ce28e97e22c04648d899e1f271f5b6700e23e2a32f6b3",
+      "size": 12129
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/apple_cdn.srs",
+      "sha256": "57d15095b297240aee0dbb76f3e59f8b57addf5c9a66257d49cfcf3df73d93f9",
+      "size": 2395
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/apple_cn.json",
+      "sha256": "f24f89b56a674bfd3000368cc1777a146fbfb8af164cebc584cfc0e728630c91",
+      "size": 489
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/apple_cn.srs",
+      "sha256": "20853273dbbb92e66d060e4f96ae385aa4eafc7f9c9a019d442c7a0f64aece9d",
+      "size": 205
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/apple_intelligence.json",
+      "sha256": "2efc5fe2b78f788a003bc47b6d9f531430de8fe1d8842927b4c82c77b01126f6",
+      "size": 363
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/apple_intelligence.srs",
+      "sha256": "47094a787d1b2a5447e2dfcf4997f684fffeb40996c4e5f892dc6666e671e5bb",
+      "size": 166
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/apple_services.json",
+      "sha256": "333e7be15d36cb895f51c857c28a162dcfec705f3a5fcb9f2a3a460ef80000e1",
+      "size": 620
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/apple_services.srs",
+      "sha256": "c7d8a6ad39a05b2b70f5395080b5eb54a6ec349bec82d93c2a4c3faa8f48ef33",
+      "size": 277
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/cdn.json",
+      "sha256": "e333cd082977589e21f163ea6fd90660b9b8e0c0302f9e472cdb918e4d475b71",
+      "size": 140419
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/cdn.srs",
+      "sha256": "771dacb5e08c04db5bd651673f304e5f36b47b74af235f2167f32f9f11a0c639",
+      "size": 38084
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/china-ip.json",
+      "sha256": "81d8304921ae169b2cff20906226fb2ff755f87c067d07a995087276a3e3790d",
+      "size": 198052
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/china-ip.srs",
+      "sha256": "7f2996b96b814cd002e8b8336681122b5f2285fdf584d348ac72fa35ca2f29c6",
+      "size": 27447
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/cloudmounter.json",
+      "sha256": "3dfd59595c292212460e441d190126e537ea36a3a0e634fe7e5feed59295c80a",
+      "size": 171
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/cloudmounter.srs",
+      "sha256": "d7a83c1e39902d289a7f4bb5951a7eab5c73a088e92166a24de9ad7a555594d6",
+      "size": 79
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/direct.json",
+      "sha256": "e4e436b229efde624bf5d07b21d2ed48da836d2f0f78b07de62883321ee7a144",
+      "size": 4717
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/direct.srs",
+      "sha256": "23f1aeebfc3c1c132a509c22c0fd2a40b0ce5661b6ff71af3aa848828c31a74c",
+      "size": 1536
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/domestic.json",
+      "sha256": "6c00b29aa6a408547fc5dce8ccf395c823fb4d277f5a65c3ad31a4758e14cf93",
+      "size": 19831
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/domestic.srs",
+      "sha256": "17f137967e4e8a071afcc5bb0af77843e2e064c0d52bacf4f3dc5c4d44930de9",
+      "size": 4912
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/domestic_cdn.json",
+      "sha256": "190b6bad59aaba200e370884b6e5daec191b5bdffdea7ea0489079f88da11f93",
+      "size": 321
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/domestic_cdn.srs",
+      "sha256": "815724c0c81f888e4e3dc407705f4e78d7e084d828c2dff812f13112484149a3",
+      "size": 137
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/download.json",
+      "sha256": "b14b51924f72765b24bb87a74ee141cc8b8a18d0c60ab250409c90cc1e227370",
+      "size": 66665
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/download.srs",
+      "sha256": "3bd95bb47f3286f5f181f510cbce7028494cca975aa13dc6bed5667bcb418ab2",
+      "size": 18506
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/game-download.json",
+      "sha256": "5d71b882b7120dd74e2f557464f53234b0c882fad3f0a368cec8cf5b22603c06",
+      "size": 2007
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/game-download.srs",
+      "sha256": "52635b8552affde3a6efc29f685adbaf466629c07d1406c23aa087779a29905a",
+      "size": 732
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/gitlab.json",
+      "sha256": "f8a0f537b3e92f31a7113ea450221ad49226eb814f307cf39c681c555e1246b5",
+      "size": 211
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/gitlab.srs",
+      "sha256": "78683f8cbda39fd0f848c1b3f5aa3e6997beefdf3ce61fcc5a181c872dec6dbf",
+      "size": 100
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/global.json",
+      "sha256": "54ec775161abfa2442c14c16dce7b588a140c26e132311c9acd976d92fff2c63",
+      "size": 29195
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/global.srs",
+      "sha256": "45b1531f6148209d8ea09fe1dcc2b104954cc42ac2147cce322552459e4080d4",
+      "size": 7825
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/icloud_private_relay.json",
+      "sha256": "ad543177e526a19f767ff0c40496f766bf01b67f17d6efa44ba50e1a98448dc8",
+      "size": 378
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/icloud_private_relay.srs",
+      "sha256": "0680530a351fbf82ac31f5e01520e64ec64b842ed989a689634824565ae40353",
+      "size": 155
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/lan.json",
+      "sha256": "7766f5e7522d77bc0565840e4a99e99334220b01fb0abe7387c2a8b14d2e9418",
+      "size": 1529
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/lan.srs",
+      "sha256": "59773937457d4e2c9d69b8fff463402d4e551c8668305de3217a2f9ef51a20ff",
+      "size": 456
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/microsoft.json",
+      "sha256": "c462ff947750a74291c5767fac02ef017e77ecb18ed23a315a4413da7b5cf4e5",
+      "size": 2213
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/microsoft.srs",
+      "sha256": "24529e9e8f6cb8294bdfc48ca89d07d15e89123934762411b54f0240dbf58a49",
+      "size": 749
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/microsoft_cdn.json",
+      "sha256": "6b6258f840c73117c7c84ba9ea0243c834a041eb19dc57921da19e598e6c5ed7",
+      "size": 2517
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/microsoft_cdn.srs",
+      "sha256": "3ce16a4566dfb1b269493eba8ff8aeb109be919bf4ce5665fc9c9714b9316bd9",
+      "size": 587
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/my_direct.json",
+      "sha256": "e97f605531dfc6aaced7b314b7d47374ba05d81e2af8ad25baa4e05553cd4a02",
+      "size": 228
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/my_direct.srs",
+      "sha256": "5462568eafaea5464357b9167a048428499d554ff9b56b839dcd87cc87ebbbe7",
+      "size": 107
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/my_git.json",
+      "sha256": "105a223387f329388e4d02130a6eeab262ab527c4f990f9b767797ab408a3e9c",
+      "size": 396
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/my_git.srs",
+      "sha256": "1a989afbb8eceb6f94d51240695657fdf1e8dc31bc13ed151b361d7233a246d1",
+      "size": 167
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/my_plus.json",
+      "sha256": "329ad8808a7cad1dc2a9d71c2283e14ea168da8f7d800833dc9698ec4b98f1da",
+      "size": 628
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/my_plus.srs",
+      "sha256": "33c7ea43dd01b421fb03dabb43b44a667162fe30c9de09491dc6c4fc3b8e1564",
+      "size": 293
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/my_proxy.json",
+      "sha256": "c15842e26a354c14ac7f5abe6b40c0ae2ae44399aaaa1729af00b9159b74307b",
+      "size": 610
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/my_proxy.srs",
+      "sha256": "3d32fbab1852f5b39e33386766140dc5ba6433bcfb81c7f3c1b7b45603a7a2c7",
+      "size": 253
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/my_reject.json",
+      "sha256": "c384052579fe0a6fd29668ea784623b52147c98e97d3b0da76e1326ad386244a",
+      "size": 1638
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/my_reject.srs",
+      "sha256": "9674b292fdf2a3e494a3096489b3e791df998961edc832c8dbb78e0fb331677e",
+      "size": 667
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/my_tw.json",
+      "sha256": "e804bf75f3b1497df971e94292d2db751948fa7476d6f1bf2d244305aeaf2335",
+      "size": 403
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/my_tw.srs",
+      "sha256": "3d1db5163343f28a7187ba08ca2f63bbaabe30d38c7b6814255e979aad9eaefe",
+      "size": 162
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/my_us.json",
+      "sha256": "d626b73309e3fd938f5b01ff90dc9b0b3c49c415a2a2113a4047628390cfccd3",
+      "size": 353
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/my_us.srs",
+      "sha256": "c86bfb1dae18974a18ee4334494dd095aae292ae942d0315a376c262ab577eee",
+      "size": 159
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/neteasemusic.json",
+      "sha256": "f79ae730eb5aeb6abd11e8520d594d76b1d626637633c16b8801f0212e5e5ea3",
+      "size": 239
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/neteasemusic.srs",
+      "sha256": "99300ec0f18a2be9af0a4052b61a3082703b6250265e0b7cd7a2b7971a2b2828",
+      "size": 110
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/reject-drop.json",
+      "sha256": "97deaa1eda07cbd3a4e191468de223cbbed7a6bcb23e071a1e9eafdef85c0ea1",
+      "size": 970
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/reject-drop.srs",
+      "sha256": "4ece08d2d692a90d5c5f375591f845140149fbc57c24432a03a592ef9dbedf0b",
+      "size": 416
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/reject-no-drop.json",
+      "sha256": "bdb0016456877a8227150a8d53bdaefff36642cc289d9ffb6e8c456aaab61e39",
+      "size": 1255
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/reject-no-drop.srs",
+      "sha256": "19bc217629a7aa4d2546c0431b2d0d83264de140ccc8f551df5a038640282cec",
+      "size": 474
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/reject-url-regex.json",
+      "sha256": "3dfd59595c292212460e441d190126e537ea36a3a0e634fe7e5feed59295c80a",
+      "size": 171
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/reject-url-regex.srs",
+      "sha256": "d7a83c1e39902d289a7f4bb5951a7eab5c73a088e92166a24de9ad7a555594d6",
+      "size": 79
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/reject.json",
+      "sha256": "19920d6cf08fe6beafd6804a89c5a8ac991d4b4f335e239d1aee64c58a9407fa",
+      "size": 4380716
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/reject.srs",
+      "sha256": "d0baa00efee5f0e242adefa72c9d41f951a5d29cd3761c8f3e9cbc8b50b5581f",
+      "size": 1238724
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/reject_extra.json",
+      "sha256": "8a7e0295b5f24a8ba0803f18776d198623489e9c96b693e1977494a5d9c1553b",
+      "size": 2372630
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/reject_extra.srs",
+      "sha256": "225fa12e6724d69f722543399b1a80725b5ff4bb117923351ed325eeb1c2cdc8",
+      "size": 628643
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/reject_phishing.json",
+      "sha256": "9c66a11d804b6276c042d6b01eadbb5c69c9aacfe0c11984e4f862d5005a4d16",
+      "size": 4546412
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/reject_phishing.srs",
+      "sha256": "7381784170be8ff3defee200faf9b57dc10983b9e17042057f0735881294071b",
+      "size": 1218135
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/sogouinput.json",
+      "sha256": "14970a4a2c46ffcdff76c1c4723f643d7b7c4d48d2a0e171f4cb92805d85abab",
+      "size": 451
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/sogouinput.srs",
+      "sha256": "0bb670ae1c290d1bcef469e1cf0f1dde7000d66549ce35ddd0366af8d3a43728",
+      "size": 173
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/speedtest.json",
+      "sha256": "86ab17f338325c163083022df67c40f5160dbc6132a748ec6a1b34d81c8fe7e5",
+      "size": 124382
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/speedtest.srs",
+      "sha256": "0acd5956e9c3dbbbaa8841875feda31ef0754be6a548820fc264d79728982e8d",
+      "size": 35218
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/stream.json",
+      "sha256": "88487bf51615620ee8fcca449fad6199db6968dc429804acb7ad3348a5df8ed5",
+      "size": 7653
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/stream.srs",
+      "sha256": "c22f313a7265824dec45fab5443ce6b1408b1de086fae377b0f394076135a33c",
+      "size": 2570
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/stream_biliintl.json",
+      "sha256": "cca26cb0a06ca40543d93fcb48dfe9b4a693a06b8f26f36b5d69e8c4c1ff8ec8",
+      "size": 381
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/stream_biliintl.srs",
+      "sha256": "07436a5f1715c44d6a63348085c5df3081d22456b75665ccb672a8c42a785c31",
+      "size": 188
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/stream_eu.json",
+      "sha256": "6691ca8cd2e9d39eaf266aa2f9278a914f20f3fc744f646263a158457bfcc5f5",
+      "size": 436
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/stream_eu.srs",
+      "sha256": "9d617768b9a32ec760089bbe5eb48c916a7aaed19503a8ae0b9dd466334a2564",
+      "size": 183
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/stream_hk.json",
+      "sha256": "87b114df5808cf13b80cca38b90af02bd5edead03a2614d0e696e0b56a6e82c9",
+      "size": 1104
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/stream_hk.srs",
+      "sha256": "c06075973771fc5b56764c87332c8b1ea46e63fc99e9e3af0038389584bf210a",
+      "size": 470
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/stream_jp.json",
+      "sha256": "a128e6d9334fc6db349388fd51cd6fdb253183df43c828bb79f6f32cd28ea7a3",
+      "size": 807
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/stream_jp.srs",
+      "sha256": "0d8bc1ec4057852165688486cfe63681d114fff26c6a59aff68c26f4052c989a",
+      "size": 343
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/stream_kr.json",
+      "sha256": "c749e4eb8000df3fe4b05c61231982bbecb5e470c35b418d08a8ae6f7de5a078",
+      "size": 242
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/stream_kr.srs",
+      "sha256": "954ebede86eb03d5442379e20fc33eca6361631394e309f9090674675274cddc",
+      "size": 113
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/stream_tw.json",
+      "sha256": "4cc7c9759bab03eab4af4bb70bc6f5e0f40edec60b77a4e1db92eca4e402bdcc",
+      "size": 1181
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/stream_tw.srs",
+      "sha256": "79b417f7908ff78f7bd28938ef8615249c92ac9f88aff3abad682fd1c8a1e284",
+      "size": 504
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/stream_us.json",
+      "sha256": "6faf8025d4c8166d52ff2ca0cf7ca4a03f10c98d313e766a965710eb2cb59c30",
+      "size": 1320
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/stream_us.srs",
+      "sha256": "47f06f3480478cec92a196c511b8755d252f772fa4f95bd77e57c056c2f00588",
+      "size": 516
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/telegram.json",
+      "sha256": "c5d4b9e443399440dba67800a8b1ab982c41817c7804d76ded2496c618d5db22",
+      "size": 496
+    },
+    {
+      "package": "sukka",
+      "path": "sukka/telegram.srs",
+      "sha256": "9d44860ac50bed620dc8138c3f14be1a1d16fc5cb10769cf2360766ace555172",
+      "size": 214
+    },
+    {
+      "package": "v2ray",
+      "path": "v2ray/geosite-category-ads-all.json",
+      "sha256": "f835342447f0aec0345b413afdbf8afe883371de8789100c9672f230f98f983e",
+      "size": 6080095
+    },
+    {
+      "package": "v2ray",
+      "path": "v2ray/geosite-category-ads-all.srs",
+      "sha256": "3bd0d4896462f1d2f6f253a8ec456662a688d380ebb7617121f1b7cacfe4838a",
+      "size": 1665669
+    },
+    {
+      "package": "v2ray",
+      "path": "v2ray/geosite-connectivity-check.json",
+      "sha256": "c5906185b4d3442f5faab55fac2d60d40a73ac5b790e739efdac300a6b83951c",
+      "size": 1060
+    },
+    {
+      "package": "v2ray",
+      "path": "v2ray/geosite-connectivity-check.srs",
+      "sha256": "8b81e05b171942d958997bd565e0365adc717836ebc68786052bfe59f54382be",
+      "size": 479
+    },
+    {
+      "package": "v2ray",
+      "path": "v2ray/geosite-geolocation-!cn.json",
+      "sha256": "253a13081a381b3dd6e4b1a7a8a25024804ee3c7eec2e44709421edf425aef1c",
+      "size": 621309
+    },
+    {
+      "package": "v2ray",
+      "path": "v2ray/geosite-geolocation-!cn.srs",
+      "sha256": "ad11cbc126124e533acba86cd6e29128ce06d324b6ff93a0132de2db9e1026df",
+      "size": 148247
+    },
+    {
+      "package": "v2ray",
+      "path": "v2ray/geosite-geolocation-cn.json",
+      "sha256": "308afb63ab74e352d8e0568ee60ed24563092e9a70e2cd6e5370e9eb1b4b220f",
+      "size": 185610
+    },
+    {
+      "package": "v2ray",
+      "path": "v2ray/geosite-geolocation-cn.srs",
+      "sha256": "78b3f95310a01aebbfcc0dd58a1d0514f4adbc0cb7aa28d419e89be16355e090",
+      "size": 40005
+    },
+    {
+      "package": "v2ray",
+      "path": "v2ray/geosite-private.json",
+      "sha256": "1f129eb28d3bf4392544e0405ad7cb5767a0e532d6b3599d81c39d83cd53cc1e",
+      "size": 4067
+    },
+    {
+      "package": "v2ray",
+      "path": "v2ray/geosite-private.srs",
+      "sha256": "3c2a2cff9a128a1f4fc30d4ce6f0928b613f4361287da8c20ccd1df0b0ff7e81",
+      "size": 696
+    }
+  ],
+  "schema": 1
+}
