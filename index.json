@@ -3,14 +3,14 @@
     {
       "package": "adguard",
       "path": "adguard/adguard-dns-filter.srs",
-      "sha256": "655877f4e7f6526a99fbaf6819e565cf1539dcb91feced62fd9ac05692fc26d5",
-      "size": 1605858
+      "sha256": "32d85e5aa6c61151ae9a500d8996275aa35d244f231b62be09fde03a235fe92a",
+      "size": 1558180
     },
     {
       "package": "adguard",
       "path": "adguard/adguard-dns-filter.txt",
-      "sha256": "2e21db10ec9f321d8000d013c365bab0f62c4375bfba6cb3fd5cbd44d9671c0b",
-      "size": 4363295
+      "sha256": "0e488d56486b64d7a36dc13bd6f08ae254611b7253ebde2b0ffe07f7ee371418",
+      "size": 4224628
     },
     {
       "package": "awavenue",
@@ -27,14 +27,14 @@
     {
       "package": "rpglist",
       "path": "rpglist/l4d2-rpglist.json",
-      "sha256": "7dec50f81d3c320f16013e9a09e15be1c5f959b7d0403a8eb558b77a373f7de4",
-      "size": 904
+      "sha256": "16d7dc9264882a2b79bb1b8787d56cfc884fc82a1e08b358d3b615d98a60c88d",
+      "size": 962
     },
     {
       "package": "rpglist",
       "path": "rpglist/l4d2-rpglist.srs",
-      "sha256": "aaf51ca7366332cdaaa3bf4bdc29b0241673c76c69d095c97ca1b535c41ca071",
-      "size": 181
+      "sha256": "d6a34eba7a239592fa0f95abb7c477629b0ce109e689baf6a91d02d350e680a7",
+      "size": 189
     },
     {
       "package": "sukka",
@@ -99,26 +99,26 @@
     {
       "package": "sukka",
       "path": "sukka/cdn.json",
-      "sha256": "e333cd082977589e21f163ea6fd90660b9b8e0c0302f9e472cdb918e4d475b71",
-      "size": 140419
+      "sha256": "c7a90ccb88b63de0b49461fd6f28d7adf70546b0d48b89a38c24c09708a561bb",
+      "size": 140475
     },
     {
       "package": "sukka",
       "path": "sukka/cdn.srs",
-      "sha256": "771dacb5e08c04db5bd651673f304e5f36b47b74af235f2167f32f9f11a0c639",
-      "size": 38084
+      "sha256": "86b4f1923d8735524adf484f61fb79479a7d621992a30b2ec100608d9ff30742",
+      "size": 38066
     },
     {
       "package": "sukka",
       "path": "sukka/china-ip.json",
-      "sha256": "81d8304921ae169b2cff20906226fb2ff755f87c067d07a995087276a3e3790d",
-      "size": 198052
+      "sha256": "e6547b3e51c490cf4c7d06cf1f88f39095d6eb0a7fa0ea35ae0bc9e8c1d145a0",
+      "size": 198337
     },
     {
       "package": "sukka",
       "path": "sukka/china-ip.srs",
-      "sha256": "7f2996b96b814cd002e8b8336681122b5f2285fdf584d348ac72fa35ca2f29c6",
-      "size": 27447
+      "sha256": "12234b39f46086758c5d21e0fc697196ac4bbc1c04f6cdbe3e1566798a4cc8a4",
+      "size": 27464
     },
     {
       "package": "sukka",
@@ -159,14 +159,14 @@
     {
       "package": "sukka",
       "path": "sukka/domestic_cdn.json",
-      "sha256": "190b6bad59aaba200e370884b6e5daec191b5bdffdea7ea0489079f88da11f93",
-      "size": 321
+      "sha256": "e0e2fd80ce51cc76f8082f2064bbc40ca3048a2fd6c507d4696544e636239c98",
+      "size": 631
     },
     {
       "package": "sukka",
       "path": "sukka/domestic_cdn.srs",
-      "sha256": "815724c0c81f888e4e3dc407705f4e78d7e084d828c2dff812f13112484149a3",
-      "size": 137
+      "sha256": "9e55fb4ad62af3196c0a624593b79d9a3f32a5fe1e9c29de08484651813e7bdd",
+      "size": 250
     },
     {
       "package": "sukka",
@@ -399,38 +399,38 @@
     {
       "package": "sukka",
       "path": "sukka/reject.json",
-      "sha256": "19920d6cf08fe6beafd6804a89c5a8ac991d4b4f335e239d1aee64c58a9407fa",
-      "size": 4380716
+      "sha256": "71fd9880e6d4c73dcbd0a15dee5dcf1dc23331336faa897cd29c00e0ef0d4bf5",
+      "size": 4346884
     },
     {
       "package": "sukka",
       "path": "sukka/reject.srs",
-      "sha256": "d0baa00efee5f0e242adefa72c9d41f951a5d29cd3761c8f3e9cbc8b50b5581f",
-      "size": 1238724
+      "sha256": "b9b2a5f0112626d7ed44b783f6955d637096f79ec4bdf6d0b2fd413fc5fa0e30",
+      "size": 1229114
     },
     {
       "package": "sukka",
       "path": "sukka/reject_extra.json",
-      "sha256": "8a7e0295b5f24a8ba0803f18776d198623489e9c96b693e1977494a5d9c1553b",
-      "size": 2372630
+      "sha256": "91bbc105a38e3a918108d653bc9bdceff75db250d587010a558dd5dc277f2204",
+      "size": 2222263
     },
     {
       "package": "sukka",
       "path": "sukka/reject_extra.srs",
-      "sha256": "225fa12e6724d69f722543399b1a80725b5ff4bb117923351ed325eeb1c2cdc8",
-      "size": 628643
+      "sha256": "2339fbbc65c011cfe72c4643a49d1f24b54b0a1c3440cf56a99d1ba89e9ebc1b",
+      "size": 589053
     },
     {
       "package": "sukka",
       "path": "sukka/reject_phishing.json",
-      "sha256": "9c66a11d804b6276c042d6b01eadbb5c69c9aacfe0c11984e4f862d5005a4d16",
-      "size": 4546412
+      "sha256": "a3216be0a9d30c206d21567f2ddd28884e729c6a5f78d4525d1e9b7753842b8f",
+      "size": 4500742
     },
     {
       "package": "sukka",
       "path": "sukka/reject_phishing.srs",
-      "sha256": "7381784170be8ff3defee200faf9b57dc10983b9e17042057f0735881294071b",
-      "size": 1218135
+      "sha256": "8fcacd43d935ccfe5fdb152e3d49becc861c450a096268e35e1dafc89fbae7bc",
+      "size": 1208772
     },
     {
       "package": "sukka",
@@ -447,14 +447,14 @@
     {
       "package": "sukka",
       "path": "sukka/speedtest.json",
-      "sha256": "86ab17f338325c163083022df67c40f5160dbc6132a748ec6a1b34d81c8fe7e5",
-      "size": 124382
+      "sha256": "9483f8669d5fbb32305db67418c71076f8666beb709390a5263b302a9499e3a0",
+      "size": 124632
     },
     {
       "package": "sukka",
       "path": "sukka/speedtest.srs",
-      "sha256": "0acd5956e9c3dbbbaa8841875feda31ef0754be6a548820fc264d79728982e8d",
-      "size": 35218
+      "sha256": "d36d39cd81d83b1e647772403a153e2d1f3d7391591ed5bf0f81d42898438116",
+      "size": 35268
     },
     {
       "package": "sukka",
@@ -567,14 +567,14 @@
     {
       "package": "v2ray",
       "path": "v2ray/geosite-category-ads-all.json",
-      "sha256": "f835342447f0aec0345b413afdbf8afe883371de8789100c9672f230f98f983e",
-      "size": 6080095
+      "sha256": "9f7aee9ab21fa3a86b8d2e9e7954dd7daae22c8851374c9531b5ed0229e562da",
+      "size": 6118566
     },
     {
       "package": "v2ray",
       "path": "v2ray/geosite-category-ads-all.srs",
-      "sha256": "3bd0d4896462f1d2f6f253a8ec456662a688d380ebb7617121f1b7cacfe4838a",
-      "size": 1665669
+      "sha256": "85d435f874d620f16fc98573983f6a09378353e30d5ffdc99a45b0bd7cef53fa",
+      "size": 1675623
     },
     {
       "package": "v2ray",
