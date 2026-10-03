@@ -16,7 +16,7 @@ rename = "geosite.dat"
 
 [source.config]
 src = "domi.toml"
-sha256 = "a44835cddb0d617c1ee7fbe2db5c47cad64eb33213616648f628932a1bb5ff40"
+sha256 = "9953a341ff37fb71828dd4ae6fc64971ca87abc5fc4c75826043fd6284af7e6f"
 rename = "domi.toml"
 
 [prepare]

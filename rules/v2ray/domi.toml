@@ -2,11 +2,11 @@
 input = "dlc.dat"
 version = 2
 
-[geosite-category-ads-all]
+[category-ads-all]
 input = "geosite.dat"
 bases = ["category-ads-all"]
 
-[geosite-geolocation-cn]
+[geolocation-cn]
 bases = ["geolocation-cn"]
 attr_filters = ["lacks:!cn", "lacks:ads"]
 
@@ -15,13 +15,13 @@ bases = ["geolocation-!cn"]
 attr_filters = ["lacks:cn", "lacks:ads"]
 internal = true
 
-["geosite-geolocation-!cn"]
+["geolocation-!cn"]
 depends = ["base-!cn"]
 bases = ["google", "microsoft"]
 
-[geosite-private]
+[private]
 bases = ["private"]
 
-[geosite-connectivity-check]
+[connectivity-check]
 bases = ["connectivity-check"]
 
