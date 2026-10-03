@@ -5,7 +5,7 @@
       "filename": "filter",
       "id": "filter",
       "package": "adguard",
-      "sha256": "45f37ecf9402064d5b03bff39db37549cc01a3348a5a582c483435509b42c36c",
+      "sha256": "fcbf8ebb7d130f346da5359e45529aa78a20de6e69cb8be0fae9014ca3cf808e",
       "src": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt",
       "verified": false
     },
@@ -18,19 +18,27 @@
       "verified": false
     },
     {
+      "filename": "ipv4.txt",
+      "id": "ipv4",
+      "package": "cn",
+      "sha256": "a668cb239617aa0030370525889beffe825bb8489c4e7eae384332cdfa069ae8",
+      "src": "https://raw.githubusercontent.com/misakaio/chnroutes2/master/chnroutes.txt",
+      "verified": false
+    },
+    {
+      "filename": "ipv6.txt",
+      "id": "ipv6",
+      "package": "cn",
+      "sha256": "49b587b3d14d288173d647443b52b1f3e739b5fe0d64464f5dcc52a55800bce8",
+      "src": "https://raw.githubusercontent.com/gaoyifan/china-operator-ip/ip-lists/china6.txt",
+      "verified": false
+    },
+    {
       "filename": "list",
       "id": "list",
       "package": "rpglist",
       "sha256": "dbaf9523bb133faca04f3ab89b61b19275a8f809be54f657ff1ea38ca614448b",
       "src": "https://github.com/yxnan/block-l4d2-rpg-servers/releases/download/latest/rpglist.json",
-      "verified": false
-    },
-    {
-      "filename": "archive",
-      "id": "archive",
-      "package": "sukka",
-      "sha256": "c50b9772e0a30bc74c4b0393e69e86e9a30bd49faab2faacd2ca60e9c9c75f41",
-      "src": "https://api.github.com/repos/SukkaLab/ruleset.skk.moe/tarball",
       "verified": false
     },
     {
