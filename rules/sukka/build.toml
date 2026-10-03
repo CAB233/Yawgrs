@@ -1,6 +1,13 @@
 name = "sukka"
 description = "SukkaLab sing-box rules merged by filename"
 
+[publish]
+target = "domain"
+
+[publish.files]
+"china-ip.json" = "ip"
+"china-ip.srs" = "ip"
+
 [source.archive]
 src = "https://api.github.com/repos/SukkaLab/ruleset.skk.moe/tarball"
 sha256 = "SKIP"

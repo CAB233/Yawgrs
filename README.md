@@ -40,6 +40,9 @@ name = "example"
 description = "示例规则集"
 depends = ["another-package"]
 
+[publish]
+target = "domain"
+
 [source.rules]
 src = "files/rules.json"  # 也可以使用 HTTP(S) 地址
 sha256 = "SKIP"          # 或填写文件实际的 64 位 SHA-256
@@ -61,6 +64,35 @@ command = ['test -s "$PKGDIR/example.srs"']
 `name` 必须与包目录名一致，`description` 描述包的用途。可选的 `depends` 声明依赖包名；示例中的 `another-package` 应替换为实际存在的包，独立构建的包可以省略该字段。执行器会检查未知依赖和循环依赖。
 
 `prepare` 用于解压、打补丁或预处理输入，`beyond` 用于后处理和检查产物，这两个阶段均可省略。跨包合并时，在 `depends` 中声明相关包，再从 `$DEPSDIR/<包名>/` 读取其产物。
+
+### 产物发布目录
+
+每个包必须配置 `[publish]`，`target` 选择 `"ip"` 或 `"domain"`。执行器递归收集 `PKGDIR` 中的文件，按文件名展平保存到对应目录。依赖包的产物副本保留原始路径，继续通过 `$DEPSDIR/<包名>/` 读取。
+
+同时生成 IP 和域名规则的包，可以用 `[publish.files]` 按文件名指定目录。例如 Sukka 的配置：
+
+```toml
+[publish]
+target = "domain"
+
+[publish.files]
+"china-ip.json" = "ip"
+"china-ip.srs" = "ip"
+```
+
+该配置将 `china-ip.json/.srs` 保存到 `ip/`，其余文件保存到 `domain/`。`publish.files` 的键为单个文件名，值为 `"ip"` 或 `"domain"`；文件位于 `PKGDIR` 的子目录时，也按文件名匹配。
+
+现有包的发布分类为：
+
+| 包 | 默认目录 | 单独指定的文件 |
+| --- | --- | --- |
+| `adguard` | `domain/` | — |
+| `awavenue` | `domain/` | — |
+| `v2ray` | `domain/` | — |
+| `rpglist` | `ip/` | — |
+| `sukka` | `domain/` | `china-ip.json`、`china-ip.srs` 发布到 `ip/` |
+
+展平后，同一发布目录内的同名文件会触发 `[WARNING]` 日志，包含目标路径、当前包和被覆盖的包。包按依赖顺序构建，后构建的文件覆盖已有文件；同一包中的同名文件按原始产物路径排序后依次处理。`index.json` 为每个最终路径记录最后发布的包、哈希和大小。分别位于 `ip/` 和 `domain/` 的同名文件各自保留。
 
 ### 来源与校验
 
@@ -138,6 +170,9 @@ type = "domi"
 name = "rpglist"
 description = "L4D2 RPG 服务器 IP 规则"
 
+[publish]
+target = "ip"
+
 [source.list]
 src = "https://github.com/yxnan/block-l4d2-rpg-servers/releases/download/latest/rpglist.json"
 sha256 = "SKIP"
@@ -168,7 +203,7 @@ version = 3                # 可选，默认值为 3
 {"data": [{"raddr": "192.0.2.1"}, {"raddr": "192.0.2.1"}]}
 ```
 
-构建后得到 `rpglist/l4d2-rpglist.json` 和编译后的 `rpglist/l4d2-rpglist.srs`，JSON 内容为：
+构建后得到 `ip/l4d2-rpglist.json` 和编译后的 `ip/l4d2-rpglist.srs`，JSON 内容为：
 
 ```json
 {"version": 3, "rules": [{"ip_cidr": ["192.0.2.1/32"]}]}
@@ -217,15 +252,35 @@ python scripts/rulebuild.py build --package sukka --output dist
 python scripts/rulebuild.py build --lock dist/sources.lock.json --output dist
 ```
 
-输出目录包含 `<包名>/...`、产物索引 `index.json` 和来源记录 `sources.lock.json`。`--lock` 会将本次获取的文件与先前锁文件中的哈希比对；`latest` 等可变地址的内容更新后，比对会失败。
+输出目录包含展平的 `ip/`、`domain/`，以及产物索引 `index.json` 和来源记录 `sources.lock.json`：
+
+```text
+dist/
+  ip/
+    china-ip.json
+    china-ip.srs
+    l4d2-rpglist.json
+    l4d2-rpglist.srs
+  domain/
+    adguard-dns-filter.txt
+    adguard-dns-filter.srs
+    awavenue-ads-rule.txt
+    awavenue-ads-rule.srs
+    ...
+  index.json
+  sources.lock.json
+```
+
+`--lock` 会将本次获取的文件与先前锁文件中的哈希比对；`latest` 等可变地址的内容更新后，比对会失败。
 
 CI 将完整产物发布到 `artifacts` 分支，文件直链格式为：
 
 ```text
-https://raw.githubusercontent.com/<owner>/Yawgrs/artifacts/<package>/<file>
+https://raw.githubusercontent.com/<owner>/Yawgrs/artifacts/ip/<file>
+https://raw.githubusercontent.com/<owner>/Yawgrs/artifacts/domain/<file>
 ```
 
-AdGuard 包保留原始 `.txt` 和专用 `.srs`；sing-box 对这种专用二进制规则的 JSON 反编译有限制。其他现有包同时提供 `.json` 和 `.srs`。
+AdGuard 包保留原始 `.txt` 和专用 `.srs`；sing-box 对这种专用二进制规则的 JSON 反编译有限制。`adguard` 模板的 `build.output` 可指定产物文件名前缀，默认使用 `adguard-dns-filter`。AWAvenue 配置为 `output = "awavenue-ads-rule"`，两个包分别发布各自的 `.txt/.srs`。其他现有包同时提供 `.json` 和 `.srs`。
 
 首次成功发布 `artifacts` 后，CI 会删除旧的 `release`、`release2` 和 `release3` 分支，旧文件直链随之失效。
 
@@ -249,12 +304,19 @@ python scripts/rulebuild.py build --package v2ray --debug
 [ERROR] v2ray: template domi: failed (exit code 1)
 ```
 
+文件覆盖提示默认显示，例如包 `second` 的产物覆盖包 `first` 的同名文件：
+
+```text
+[WARNING] domain/shared.srs: package second (second/shared.srs) overwrites file from package first
+```
+
 ## 自动化测试
 
 `tests/test_rulebuild.py` 用于检查构建器和模板的行为，防止修改代码后破坏已有功能。当前覆盖：
 
 - 来源处理：本地文件与模拟下载的重命名、目标文件名冲突和路径检查、SHA-256 失败时提前终止。
 - 构建流程：包工作区隔离、依赖产物传递、`prepare → build → beyond` 阶段执行、配置校验和循环依赖检查。
+- 产物发布：IP/域名分类、子目录文件展平、同名覆盖日志、最终文件索引、AdGuard 与 AWAvenue 独立命名，以及失败时保留已有输出。
 - JSON 模板：IP、域名和端口映射、排序去重、重命名后的源文件读取、实际 SRS 编译，以及异常提取结果的失败处理。
 
 测试使用临时目录和小型样例，远程下载通过模拟响应验证。执行命令：

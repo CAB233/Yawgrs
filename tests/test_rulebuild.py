@@ -1,3 +1,4 @@
+import argparse
 import importlib.util
 import contextlib
 import io
@@ -196,6 +197,159 @@ class RuleBuildTests(unittest.TestCase):
         self.assertTrue(packages)
         self.assertEqual(set(rulebuild.order_packages(packages)), set(packages))
 
+    def test_publish_config_requires_flat_ip_or_domain_targets(self):
+        invalid = (
+            None, "domain", {}, {"target": "other"}, {"target": "domain/subdir"},
+            {"target": ["ip"]}, {"target": "domain", "files": []},
+            {"target": "domain", "files": {"nested/file.srs": "ip"}},
+            {"target": "domain", "files": {"file.srs": "other"}},
+        )
+        for publish in invalid:
+            with self.subTest(publish=publish), self.assertRaises(rulebuild.BuildError):
+                rulebuild.check_publish(publish, "sample.publish")
+        for target in ("ip", "domain"):
+            rulebuild.check_publish({"target": target, "files": {"file.srs": "ip"}}, "sample.publish")
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            package = root / "rules" / "a"
+            package.mkdir(parents=True)
+            manifest = package / "build.toml"
+            recipe = 'name = "a"\ndescription = "A"\n[build]\ntype = "self"\ncommand = ["true"]\n'
+            manifest.write_text(recipe)
+            with self.assertRaisesRegex(rulebuild.BuildError, r"a.publish: \[publish\] is required"):
+                rulebuild.discover(root)
+            manifest.write_text(recipe.replace('[build]', '[publish]\ntarget = "ip/subdir"\n[build]'))
+            with self.assertRaisesRegex(rulebuild.BuildError, "publish.target"):
+                rulebuild.discover(root)
+
+    def test_flat_publication_routes_files_and_preserves_dependencies(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            packages = {}
+            for name in ("a", "b", "stage"):
+                package = root / name
+                package.mkdir()
+                packages[name] = (package, {})
+            (root / "a/input.txt").write_text("from a\n")
+            packages["a"][1].update({
+                "publish": {"target": "domain", "files": {"addresses.txt": "ip"}},
+                "source": {"input": {"src": "input.txt", "sha256": "SKIP"}},
+                "build": {"type": "self", "command": [
+                    'mkdir -p "$PKGDIR/nested"',
+                    'cp "$SRCDIR/input" "$PKGDIR/nested/shared.txt"',
+                    'echo "192.0.2.1/32" > "$PKGDIR/nested/addresses.txt"',
+                ]},
+            })
+            packages["b"][1].update({
+                "publish": {"target": "ip"}, "depends": ["a"],
+                "build": {"type": "self", "command": [
+                    'echo "from b" > "$PKGDIR/shared.txt"',
+                    'cp "$DEPSDIR/a/nested/shared.txt" "$PKGDIR/dependency.txt"',
+                ]},
+            })
+            packages["stage"][1].update({
+                "publish": {"target": "domain"},
+                "build": {"type": "self", "command": ['echo "stage fixture" > "$PKGDIR/stage.txt"']},
+            })
+            output = root / "dist"
+            args = argparse.Namespace(output=output, lock=None)
+            log = io.StringIO()
+            with contextlib.redirect_stderr(log):
+                rulebuild.build_all(args, packages, rulebuild.order_packages(packages))
+            expected = {"domain/shared.txt", "domain/stage.txt", "ip/shared.txt", "ip/addresses.txt", "ip/dependency.txt"}
+            self.assertEqual({path.name for path in output.iterdir()},
+                             {"ip", "domain", "index.json", "sources.lock.json"})
+            self.assertEqual({path.relative_to(output).as_posix()
+                              for target in ("ip", "domain") for path in (output / target).iterdir()}, expected)
+            self.assertTrue(all(path.is_file() for target in ("ip", "domain") for path in (output / target).iterdir()))
+            self.assertEqual((output / "ip/dependency.txt").read_text(), "from a\n")
+            self.assertEqual((output / "domain/shared.txt").read_text(), "from a\n")
+            self.assertEqual((output / "ip/shared.txt").read_text(), "from b\n")
+            self.assertNotIn("[WARNING]", log.getvalue())
+            artifacts = json.loads((output / "index.json").read_text())["artifacts"]
+            self.assertEqual({artifact["path"] for artifact in artifacts}, expected)
+            for artifact in artifacts:
+                path = output / artifact["path"]
+                self.assertEqual(artifact["sha256"], rulebuild.sha256(path))
+                self.assertEqual(artifact["size"], path.stat().st_size)
+            sources = json.loads((output / "sources.lock.json").read_text())["sources"]
+            self.assertEqual(sources[0]["package"], "a")
+
+    def test_flat_publication_warns_on_overwrites_and_indexes_final_owner(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            packages = {}
+            for name in ("a", "b", "c"):
+                package = root / name
+                package.mkdir()
+                commands = ['mkdir -p "$PKGDIR/nested"', f'echo "from {name}" > "$PKGDIR/nested/shared.txt"']
+                if name == "a":
+                    commands.append('echo "from a again" > "$PKGDIR/shared.txt"')
+                packages[name] = (package, {
+                    "publish": {"target": "domain"},
+                    "build": {"type": "self", "command": commands},
+                })
+            output = root / "dist"
+            log = io.StringIO()
+            with contextlib.redirect_stderr(log), patch.object(rulebuild, "DEBUG_ENABLED", False):
+                rulebuild.build_all(argparse.Namespace(output=output, lock=None), packages, ["a", "b", "c"])
+            warnings = [line for line in log.getvalue().splitlines() if line.startswith("[WARNING]")]
+            self.assertEqual(len(warnings), 3)
+            for warning, current, previous in zip(warnings, ("a", "b", "c"), ("a", "a", "b")):
+                self.assertIn("domain/shared.txt", warning)
+                self.assertIn(f"package {current} ({current}/", warning)
+                self.assertIn(f"overwrites file from package {previous}", warning)
+            self.assertEqual((output / "domain/shared.txt").read_text(), "from c\n")
+            artifacts = json.loads((output / "index.json").read_text())["artifacts"]
+            self.assertEqual(artifacts, [{
+                "package": "c", "path": "domain/shared.txt",
+                "sha256": rulebuild.sha256(output / "domain/shared.txt"), "size": len("from c\n"),
+            }])
+
+    def test_failed_build_preserves_previous_flat_output(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            output = root / "dist"
+            (output / "domain").mkdir(parents=True)
+            (output / "domain/previous.txt").write_text("previous output\n")
+            packages = {}
+            for name, commands in (("a", ['echo "new output" > "$PKGDIR/new.txt"']), ("b", ["exit 7"])):
+                package = root / name
+                package.mkdir()
+                packages[name] = (package, {
+                    "publish": {"target": "domain"},
+                    "build": {"type": "self", "command": commands},
+                })
+            with contextlib.redirect_stderr(io.StringIO()), self.assertRaisesRegex(rulebuild.BuildError, "b: build: failed"):
+                rulebuild.build_all(argparse.Namespace(output=output, lock=None), packages, ["a", "b"])
+            self.assertEqual({path.relative_to(output).as_posix() for path in output.rglob("*")},
+                             {"domain", "domain/previous.txt"})
+            self.assertEqual((output / "domain/previous.txt").read_text(), "previous output\n")
+
+    @unittest.skipUnless(shutil.which("jq") and shutil.which("sing-box"), "requires jq and sing-box")
+    def test_adguard_and_awavenue_publish_distinct_names(self):
+        recipes = rulebuild.discover()
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            packages = {}
+            for name in ("adguard", "awavenue"):
+                package = root / name
+                package.mkdir()
+                (package / "filter.txt").write_text(f"[Adblock Plus 2.0]\n||{name}.example^\n")
+                packages[name] = (package, {
+                    **recipes[name][1], "source": {"filter": {"src": "filter.txt", "sha256": "SKIP"}},
+                })
+            output = root / "dist"
+            log = io.StringIO()
+            with contextlib.redirect_stderr(log):
+                rulebuild.build_all(argparse.Namespace(output=output, lock=None), packages, ["adguard", "awavenue"])
+            self.assertEqual({path.name for path in (output / "domain").iterdir()},
+                             {"adguard-dns-filter.txt", "adguard-dns-filter.srs", "awavenue-ads-rule.txt", "awavenue-ads-rule.srs"})
+            self.assertNotIn("[WARNING]", log.getvalue())
+            for name, basename in (("adguard", "adguard-dns-filter"), ("awavenue", "awavenue-ads-rule")):
+                self.assertIn(f"||{name}.example^", (output / f"domain/{basename}.txt").read_text())
+                self.assertGreater((output / f"domain/{basename}.srs").stat().st_size, 0)
+
     def test_isolated_packages_and_dependencies(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -251,7 +405,7 @@ class RuleBuildTests(unittest.TestCase):
             (root / "templates").mkdir()
             (root / "templates" / "shared.sh").write_text("true\n")
             (root / "rules" / "a" / "build.toml").write_text(
-                'name = "a"\ndescription = "A"\n[build]\ntype = "shared"\ncommand = ["true"]\n'
+                'name = "a"\ndescription = "A"\n[publish]\ntarget = "domain"\n[build]\ntype = "shared"\ncommand = ["true"]\n'
             )
             with self.assertRaisesRegex(rulebuild.BuildError, "only allowed"):
                 rulebuild.discover(root)

@@ -73,13 +73,31 @@ def check_commands(value: object, context: str, required: bool = False) -> list[
     return value
 
 
+def check_filename(value: object, context: str) -> str:
+    if (not isinstance(value, str) or not value or value in (".", "..")
+            or "/" in value or "\\" in value or "\x00" in value):
+        raise BuildError(f"{context}: expected a filename without directories")
+    return value
+
+
+def check_publish(value: object, context: str) -> None:
+    if not isinstance(value, dict):
+        raise BuildError(f"{context}: [publish] is required")
+    if value.get("target") not in ("ip", "domain"):
+        raise BuildError(f"{context}.target: expected ip or domain")
+    files = value.get("files", {})
+    if not isinstance(files, dict):
+        raise BuildError(f"{context}.files: expected a table of filenames and targets")
+    for filename, target in files.items():
+        check_filename(filename, f"{context}.files")
+        if target not in ("ip", "domain"):
+            raise BuildError(f"{context}.files.{filename}: expected ip or domain")
+
+
 def source_filenames(sources: dict) -> dict[str, str]:
     filenames = {}
     for source_id, source in sources.items():
-        filename = source.get("rename", source_id)
-        if (not isinstance(filename, str) or not filename or filename in (".", "..")
-                or "/" in filename or "\\" in filename or "\x00" in filename):
-            raise BuildError(f"source.{source_id}.rename: expected a filename without directories")
+        filename = check_filename(source.get("rename", source_id), f"source.{source_id}.rename")
         if filename in filenames.values():
             raise BuildError(f"source.{source_id}: duplicate source filename: {filename}")
         filenames[source_id] = filename
@@ -100,6 +118,7 @@ def discover(root: Path = ROOT) -> dict[str, tuple[Path, dict]]:
             raise BuildError(f"{manifest}: depends must be an array of unique names")
         for dependency in dependencies:
             check_id(dependency, f"{name}.depends")
+        check_publish(data.get("publish"), f"{name}.publish")
         sources = data.get("source", {})
         if not isinstance(sources, dict):
             raise BuildError(f"{manifest}: source must be a table")
@@ -265,6 +284,22 @@ def build_package(name: str, package: Path, data: dict, stage: Path, workspace: 
     return records, artifacts
 
 
+def publish_artifacts(data: dict, package_stage: Path, stage: Path,
+                      artifacts: list[dict], published: dict[str, dict]) -> None:
+    publish = data["publish"]
+    for artifact in artifacts:
+        source = package_stage / artifact["path"]
+        target = publish.get("files", {}).get(source.name, publish["target"])
+        relative = f"{target}/{source.name}"
+        previous = published.get(relative)
+        if previous:
+            log("WARNING", f"{relative}: package {artifact['package']} ({artifact['path']}) "
+                f"overwrites file from package {previous['package']}")
+        shutil.copyfile(source, stage / relative)
+        published[relative] = {**artifact, "path": relative}
+        log("DEBUG", f"{artifact['package']}: {artifact['path']} -> {relative}")
+
+
 def build_all(args: argparse.Namespace, packages: dict, ordered: list[str]) -> None:
     output = args.output.resolve()
     allowed = ROOT in output.parents or Path("/tmp") in output.parents
@@ -280,18 +315,23 @@ def build_all(args: argparse.Namespace, packages: dict, ordered: list[str]) -> N
     output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix=".yawgrs-build-", dir=output.parent) as temp:
         workspace = Path(temp)
+        build_workspace = workspace / "work"
         stage = workspace / "stage"
-        stage.mkdir()
+        package_stage = workspace / "packages"
+        package_stage.mkdir()
+        for target in ("ip", "domain"):
+            (stage / target).mkdir(parents=True)
         sources: list[dict] = []
-        artifacts: list[dict] = []
+        artifacts: dict[str, dict] = {}
         for name in ordered:
             log("INFO", f"Building {name}")
             package, data = packages[name]
-            source_rows, artifact_rows = build_package(name, package, data, stage, workspace, locked)
+            source_rows, artifact_rows = build_package(name, package, data, package_stage, build_workspace, locked)
             sources.extend(source_rows)
-            artifacts.extend(artifact_rows)
+            publish_artifacts(data, package_stage, stage, artifact_rows, artifacts)
         (stage / "sources.lock.json").write_text(json.dumps({"schema": 1, "sources": sources}, indent=2, sort_keys=True) + "\n")
-        (stage / "index.json").write_text(json.dumps({"schema": 1, "artifacts": artifacts}, indent=2, sort_keys=True) + "\n")
+        artifact_rows = [artifacts[path] for path in sorted(artifacts)]
+        (stage / "index.json").write_text(json.dumps({"schema": 1, "artifacts": artifact_rows}, indent=2, sort_keys=True) + "\n")
         if output.exists():
             backup = workspace / "previous-output"
             output.rename(backup)

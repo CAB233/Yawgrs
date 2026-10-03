@@ -1,6 +1,9 @@
 name = "v2ray"
 description = "v2fly and Loyalsoldier geosite rule sets"
 
+[publish]
+target = "domain"
+
 [source.dlc]
 src = "https://github.com/v2fly/domain-list-community/releases/latest/download/dlc.dat"
 sha256 = "SKIP"
