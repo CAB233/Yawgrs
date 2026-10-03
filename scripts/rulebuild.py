@@ -293,8 +293,8 @@ def publish_artifacts(data: dict, package_stage: Path, stage: Path,
         relative = f"{target}/{source.name}"
         previous = published.get(relative)
         if previous:
-            log("WARNING", f"{relative}: package {artifact['package']} ({artifact['path']}) "
-                f"overwrites file from package {previous['package']}")
+            raise BuildError(f"{relative}: filename collision: package {artifact['package']} ({artifact['path']}) "
+                             f"conflicts with package {previous['package']}")
         shutil.copyfile(source, stage / relative)
         published[relative] = {**artifact, "path": relative}
         log("DEBUG", f"{artifact['package']}: {artifact['path']} -> {relative}")

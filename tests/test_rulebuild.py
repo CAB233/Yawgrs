@@ -275,36 +275,44 @@ class RuleBuildTests(unittest.TestCase):
             sources = json.loads((output / "sources.lock.json").read_text())["sources"]
             self.assertEqual(sources[0]["package"], "a")
 
-    def test_flat_publication_warns_on_overwrites_and_indexes_final_owner(self):
-        with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
-            packages = {}
-            for name in ("a", "b", "c"):
-                package = root / name
-                package.mkdir()
-                commands = ['mkdir -p "$PKGDIR/nested"', f'echo "from {name}" > "$PKGDIR/nested/shared.txt"']
-                if name == "a":
-                    commands.append('echo "from a again" > "$PKGDIR/shared.txt"')
-                packages[name] = (package, {
-                    "publish": {"target": "domain"},
-                    "build": {"type": "self", "command": commands},
-                })
-            output = root / "dist"
-            log = io.StringIO()
-            with contextlib.redirect_stderr(log), patch.object(rulebuild, "DEBUG_ENABLED", False):
-                rulebuild.build_all(argparse.Namespace(output=output, lock=None), packages, ["a", "b", "c"])
-            warnings = [line for line in log.getvalue().splitlines() if line.startswith("[WARNING]")]
-            self.assertEqual(len(warnings), 3)
-            for warning, current, previous in zip(warnings, ("a", "b", "c"), ("a", "a", "b")):
-                self.assertIn("domain/shared.txt", warning)
-                self.assertIn(f"package {current} ({current}/", warning)
-                self.assertIn(f"overwrites file from package {previous}", warning)
-            self.assertEqual((output / "domain/shared.txt").read_text(), "from c\n")
-            artifacts = json.loads((output / "index.json").read_text())["artifacts"]
-            self.assertEqual(artifacts, [{
-                "package": "c", "path": "domain/shared.txt",
-                "sha256": rulebuild.sha256(output / "domain/shared.txt"), "size": len("from c\n"),
-            }])
+    def test_flat_publication_errors_on_collisions_and_preserves_previous_output(self):
+        for target in ("ip", "domain"):
+            for same_package in (False, True):
+                with self.subTest(target=target, same_package=same_package), tempfile.TemporaryDirectory() as temporary:
+                    root = Path(temporary)
+                    packages = {}
+                    for name in ("a", "b", "c"):
+                        package = root / name
+                        package.mkdir()
+                        commands = ['mkdir -p "$PKGDIR/nested"', f'echo "from {name}" > "$PKGDIR/nested/shared.txt"']
+                        if same_package and name == "a":
+                            commands.append('echo "from a again" > "$PKGDIR/shared.txt"')
+                        packages[name] = (package, {
+                            "publish": {"target": target},
+                            "build": {"type": "self", "command": commands},
+                        })
+                    output = root / "dist"
+                    (output / target).mkdir(parents=True)
+                    (output / target / "shared.txt").write_text("previous output\n")
+                    (output / "index.json").write_text('{"schema": 1, "artifacts": []}\n')
+                    (output / "sources.lock.json").write_text('{"schema": 1, "sources": []}\n')
+                    previous_files = {path.relative_to(output).as_posix(): path.read_bytes()
+                                      for path in output.rglob("*") if path.is_file()}
+                    log = io.StringIO()
+                    with (contextlib.redirect_stderr(log),
+                          patch.object(rulebuild, "discover", return_value=packages),
+                          patch.object(rulebuild, "DEBUG_ENABLED", False),
+                          patch.object(sys, "argv", ["rulebuild", "build", "--output", str(output)])):
+                        result = rulebuild.main()
+                    self.assertEqual(result, 1)
+                    current = "a" if same_package else "b"
+                    source = "a/shared.txt" if same_package else "b/nested/shared.txt"
+                    self.assertIn(f"[ERROR] {target}/shared.txt: filename collision: "
+                                  f"package {current} ({source}) conflicts with package a", log.getvalue())
+                    self.assertNotIn("[WARNING]", log.getvalue())
+                    self.assertNotIn(f"[INFO] Building {'b' if same_package else 'c'}", log.getvalue())
+                    self.assertEqual({path.relative_to(output).as_posix(): path.read_bytes()
+                                      for path in output.rglob("*") if path.is_file()}, previous_files)
 
     def test_failed_build_preserves_previous_flat_output(self):
         with tempfile.TemporaryDirectory() as temporary:

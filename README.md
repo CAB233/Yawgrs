@@ -92,7 +92,6 @@ target = "domain"
 | `rpglist` | `ip/` | — |
 | `sukka` | `domain/` | `china-ip.json`、`china-ip.srs` 发布到 `ip/` |
 
-展平后，同一发布目录内的同名文件会触发 `[WARNING]` 日志，包含目标路径、当前包和被覆盖的包。包按依赖顺序构建，后构建的文件覆盖已有文件；同一包中的同名文件按原始产物路径排序后依次处理。`index.json` 为每个最终路径记录最后发布的包、哈希和大小。分别位于 `ip/` 和 `domain/` 的同名文件各自保留。
 
 ### 来源与校验
 
@@ -304,10 +303,10 @@ python scripts/rulebuild.py build --package v2ray --debug
 [ERROR] v2ray: template domi: failed (exit code 1)
 ```
 
-文件覆盖提示默认显示，例如包 `second` 的产物覆盖包 `first` 的同名文件：
+文件名冲突会输出错误并以退出码 `1` 终止构建，例如包 `second` 和包 `first` 产生相同的发布路径：
 
 ```text
-[WARNING] domain/shared.srs: package second (second/shared.srs) overwrites file from package first
+[ERROR] domain/shared.srs: filename collision: package second (second/shared.srs) conflicts with package first
 ```
 
 ## 自动化测试
@@ -316,7 +315,7 @@ python scripts/rulebuild.py build --package v2ray --debug
 
 - 来源处理：本地文件与模拟下载的重命名、目标文件名冲突和路径检查、SHA-256 失败时提前终止。
 - 构建流程：包工作区隔离、依赖产物传递、`prepare → build → beyond` 阶段执行、配置校验和循环依赖检查。
-- 产物发布：IP/域名分类、子目录文件展平、同名覆盖日志、最终文件索引、AdGuard 与 AWAvenue 独立命名，以及失败时保留已有输出。
+- 产物发布：IP/域名分类、子目录文件展平、同名冲突报错并终止构建、最终文件索引、AdGuard 与 AWAvenue 独立命名，以及失败时保留已有输出。
 - JSON 模板：IP、域名和端口映射、排序去重、重命名后的源文件读取、实际 SRS 编译，以及异常提取结果的失败处理。
 
 测试使用临时目录和小型样例，远程下载通过模拟响应验证。执行命令：
