@@ -69,7 +69,7 @@ command = ['test -s "$PKGDIR/example.srs"']
 
 每个包必须配置 `[publish]`，`target` 选择 `"ip"` 或 `"domain"`。执行器递归收集 `PKGDIR` 中的文件，按文件名展平保存到对应目录。依赖包的产物副本保留原始路径，继续通过 `$DEPSDIR/<包名>/` 读取。
 
-同时生成 IP 和域名规则的包，可以用 `[publish.files]` 按文件名指定目录。例如 Sukka 的配置：
+同时生成 IP 和域名规则的包，可以用 `[publish.files]` 按文件名指定目录。例如：
 
 ```toml
 [publish]
@@ -90,7 +90,7 @@ target = "domain"
 | `awavenue` | `domain/` | — |
 | `v2ray` | `domain/` | — |
 | `rpglist` | `ip/` | — |
-| `sukka` | `domain/` | `china-ip.json`、`china-ip.srs` 发布到 `ip/` |
+| `cn` | `ip/` | — |
 
 
 ### 来源与校验
@@ -160,6 +160,14 @@ type = "domi"
 示例假定已声明 `[source.config]` 和 `[source.dlc]`，且配置引用 `dlc.dat`。采用 `rename` 时，相应命令应使用实际暂存文件名。
 
 当前 v2ray 包使用 `rename` 将三个来源暂存为 `$SRCDIR/domi.toml`、`$SRCDIR/dlc.dat` 和 `$SRCDIR/geosite.dat`，再通过 `prepare` 复制到 `BUILDDIR`。`rename` 控制来源文件在 `SRCDIR` 中的名称，`prepare` 负责准备模板读取的构建目录。模板按该配置导出 5 个公开规则集，其中 1 个内部依赖条目用于合并。
+
+### cn 包
+
+`rules/cn/build.toml` 将 [misakaio/chnroutes2 的 IPv4 列表](https://github.com/misakaio/chnroutes2/blob/master/chnroutes.txt)和 [gaoyifan/china-operator-ip 的 IPv6 列表](https://github.com/gaoyifan/china-operator-ip/blob/ip-lists/china6.txt)合并到同一个 `ip_cidr` 数组。构建使用 raw 地址获取原始文本，过滤注释和空行、清理首尾空白，再排序去重，生成版本为 `3` 的 `ip/cn.json`，并编译为 `ip/cn.srs`。空列表和无效 CIDR 会导致构建失败。
+
+```bash
+python scripts/rulebuild.py build --package cn --output dist
+```
 
 ## JSON 字段映射
 
@@ -245,7 +253,7 @@ python scripts/rulebuild.py validate
 python scripts/rulebuild.py build --output dist
 
 # 构建指定包及其依赖
-python scripts/rulebuild.py build --package sukka --output dist
+python scripts/rulebuild.py build --package cn --output dist
 
 # 根据已有锁文件核对来源内容
 python scripts/rulebuild.py build --lock dist/sources.lock.json --output dist
@@ -256,8 +264,8 @@ python scripts/rulebuild.py build --lock dist/sources.lock.json --output dist
 ```text
 dist/
   ip/
-    china-ip.json
-    china-ip.srs
+    cn.json
+    cn.srs
     l4d2-rpglist.json
     l4d2-rpglist.srs
   domain/
@@ -316,6 +324,7 @@ python scripts/rulebuild.py build --package v2ray --debug
 - 来源处理：本地文件与模拟下载的重命名、目标文件名冲突和路径检查、SHA-256 失败时提前终止。
 - 构建流程：包工作区隔离、依赖产物传递、`prepare → build → beyond` 阶段执行、配置校验和循环依赖检查。
 - 产物发布：IP/域名分类、子目录文件展平、同名冲突报错并终止构建、最终文件索引、AdGuard 与 AWAvenue 独立命名，以及失败时保留已有输出。
+- CN 规则：IPv4/IPv6 合并、注释和空白处理、排序去重、实际 SRS 编译，以及空列表和无效 CIDR 的失败处理。
 - JSON 模板：IP、域名和端口映射、排序去重、重命名后的源文件读取、实际 SRS 编译，以及异常提取结果的失败处理。
 
 测试使用临时目录和小型样例，远程下载通过模拟响应验证。执行命令：

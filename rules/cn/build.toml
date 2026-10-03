@@ -1,0 +1,29 @@
+name = "cn"
+description = "China IPv4 and IPv6 CIDR rules"
+
+[publish]
+target = "ip"
+
+[source.ipv4]
+src = "https://raw.githubusercontent.com/misakaio/chnroutes2/master/chnroutes.txt"
+sha256 = "SKIP"
+rename = "ipv4.txt"
+
+[source.ipv6]
+src = "https://raw.githubusercontent.com/gaoyifan/china-operator-ip/ip-lists/china6.txt"
+sha256 = "SKIP"
+rename = "ipv6.txt"
+
+[build]
+type = "self"
+command = [
+  '''
+jq -eRn '
+  [inputs | sub("#.*$"; "") | gsub("^[[:space:]]+|[[:space:]]+$"; "") | select(length > 0)]
+  | unique
+  | if length == 0 then error("no IP CIDRs found")
+    else {version: 3, rules: [{ip_cidr: .}]} end
+' "$SRCDIR/ipv4.txt" "$SRCDIR/ipv6.txt" > "$PKGDIR/cn.json"
+''',
+  'sing-box rule-set compile -o "$PKGDIR/cn.srs" "$PKGDIR/cn.json"',
+]

@@ -192,6 +192,35 @@ class RuleBuildTests(unittest.TestCase):
                     rulebuild.build_package("sample", package, data, stage, workspace, {})
                 self.assertFalse((stage / "sample").exists())
 
+    @unittest.skipUnless(shutil.which("jq") and shutil.which("sing-box"), "requires jq and sing-box")
+    def test_cn_merges_ipv4_and_ipv6_into_one_ip_rule_set(self):
+        package, data = rulebuild.discover()["cn"]
+        sources = {
+            data["source"]["ipv4"]["src"]: b"# upstream metadata\r\n 192.0.2.0/24 \r\n\n192.0.2.0/24\n198.51.100.0/24 # comment\n",
+            data["source"]["ipv6"]["src"]: b"\t2001:db8::/32\r\n# IPv6\n2001:db8::/32\n\n",
+        }
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / "dist"
+            with (patch.object(rulebuild.urllib.request, "urlopen", side_effect=lambda request, **kwargs: io.BytesIO(sources[request.full_url])),
+                  contextlib.redirect_stderr(io.StringIO())):
+                rulebuild.build_all(argparse.Namespace(output=output, lock=None), {"cn": (package, data)}, ["cn"])
+            self.assertEqual(json.loads((output / "ip/cn.json").read_text()), {
+                "version": 3, "rules": [{"ip_cidr": ["192.0.2.0/24", "198.51.100.0/24", "2001:db8::/32"]}],
+            })
+            self.assertEqual({path.name for path in (output / "ip").iterdir()}, {"cn.json", "cn.srs"})
+            self.assertGreater((output / "ip/cn.srs").stat().st_size, 0)
+
+    @unittest.skipUnless(shutil.which("jq") and shutil.which("sing-box"), "requires jq and sing-box")
+    def test_cn_rejects_empty_and_invalid_cidr_inputs(self):
+        package, data = rulebuild.discover()["cn"]
+        for payload in (b"# metadata\r\n\n", b"invalid CIDR\n", b"192.0.2.0/99\n"):
+            with self.subTest(payload=payload), tempfile.TemporaryDirectory() as temporary:
+                output = Path(temporary) / "dist"
+                with (patch.object(rulebuild.urllib.request, "urlopen", side_effect=lambda *args, **kwargs: io.BytesIO(payload)),
+                      contextlib.redirect_stderr(io.StringIO()), self.assertRaises(rulebuild.BuildError)):
+                    rulebuild.build_all(argparse.Namespace(output=output, lock=None), {"cn": (package, data)}, ["cn"])
+                self.assertFalse(output.exists())
+
     def test_repository_recipes_validate(self):
         packages = rulebuild.discover()
         self.assertTrue(packages)
