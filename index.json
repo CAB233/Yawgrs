@@ -85,6 +85,18 @@
       "size": 23211
     },
     {
+      "package": "v2ray",
+      "path": "domain/category-ads-all.json",
+      "sha256": "c4cc49084176924d7cc36d6d5173ad86eb4d0a8b3fcdc7f697f3495f16baad04",
+      "size": 5938523
+    },
+    {
+      "package": "v2ray",
+      "path": "domain/category-ads-all.srs",
+      "sha256": "b19a4e85c6bda1b597cb116d9476f3332228ac5a9e03e24003ad185d52f652c2",
+      "size": 1629936
+    },
+    {
       "package": "sukka",
       "path": "domain/cdn.json",
       "sha256": "ee4173347de898490ff6ebcb244746208c03b58fa84f6666b5ed5e3f31725957",
@@ -107,6 +119,18 @@
       "path": "domain/cloudmounter.srs",
       "sha256": "d7a83c1e39902d289a7f4bb5951a7eab5c73a088e92166a24de9ad7a555594d6",
       "size": 79
+    },
+    {
+      "package": "v2ray",
+      "path": "domain/connectivity-check.json",
+      "sha256": "c5906185b4d3442f5faab55fac2d60d40a73ac5b790e739efdac300a6b83951c",
+      "size": 1060
+    },
+    {
+      "package": "v2ray",
+      "path": "domain/connectivity-check.srs",
+      "sha256": "8b81e05b171942d958997bd565e0365adc717836ebc68786052bfe59f54382be",
+      "size": 479
     },
     {
       "package": "sukka",
@@ -170,63 +194,27 @@
     },
     {
       "package": "v2ray",
-      "path": "domain/geosite-category-ads-all.json",
-      "sha256": "c4cc49084176924d7cc36d6d5173ad86eb4d0a8b3fcdc7f697f3495f16baad04",
-      "size": 5938523
-    },
-    {
-      "package": "v2ray",
-      "path": "domain/geosite-category-ads-all.srs",
-      "sha256": "b19a4e85c6bda1b597cb116d9476f3332228ac5a9e03e24003ad185d52f652c2",
-      "size": 1629936
-    },
-    {
-      "package": "v2ray",
-      "path": "domain/geosite-connectivity-check.json",
-      "sha256": "c5906185b4d3442f5faab55fac2d60d40a73ac5b790e739efdac300a6b83951c",
-      "size": 1060
-    },
-    {
-      "package": "v2ray",
-      "path": "domain/geosite-connectivity-check.srs",
-      "sha256": "8b81e05b171942d958997bd565e0365adc717836ebc68786052bfe59f54382be",
-      "size": 479
-    },
-    {
-      "package": "v2ray",
-      "path": "domain/geosite-geolocation-!cn.json",
+      "path": "domain/geolocation-!cn.json",
       "sha256": "106d4d09726e3073632900465f65ff7b658dcfe341c0fb2773e0de00c1afb8c9",
       "size": 621419
     },
     {
       "package": "v2ray",
-      "path": "domain/geosite-geolocation-!cn.srs",
+      "path": "domain/geolocation-!cn.srs",
       "sha256": "a1b4978370914b9d597c78e167dc3ed522ae435fee5ca8047492251df10fe59c",
       "size": 148248
     },
     {
       "package": "v2ray",
-      "path": "domain/geosite-geolocation-cn.json",
+      "path": "domain/geolocation-cn.json",
       "sha256": "5f2e3072e899f29913aec03406a8bd9307eaee93ae98ed1363d9b2e60f094ae6",
       "size": 185631
     },
     {
       "package": "v2ray",
-      "path": "domain/geosite-geolocation-cn.srs",
+      "path": "domain/geolocation-cn.srs",
       "sha256": "64930fc06dee342d3d1506162e9a843be46dee46ef3589ec6d2f2882247630f3",
       "size": 40012
-    },
-    {
-      "package": "v2ray",
-      "path": "domain/geosite-private.json",
-      "sha256": "1f129eb28d3bf4392544e0405ad7cb5767a0e532d6b3599d81c39d83cd53cc1e",
-      "size": 4067
-    },
-    {
-      "package": "v2ray",
-      "path": "domain/geosite-private.srs",
-      "sha256": "3c2a2cff9a128a1f4fc30d4ce6f0928b613f4361287da8c20ccd1df0b0ff7e81",
-      "size": 696
     },
     {
       "package": "sukka",
@@ -395,6 +383,18 @@
       "path": "domain/neteasemusic.srs",
       "sha256": "99300ec0f18a2be9af0a4052b61a3082703b6250265e0b7cd7a2b7971a2b2828",
       "size": 110
+    },
+    {
+      "package": "v2ray",
+      "path": "domain/private.json",
+      "sha256": "1f129eb28d3bf4392544e0405ad7cb5767a0e532d6b3599d81c39d83cd53cc1e",
+      "size": 4067
+    },
+    {
+      "package": "v2ray",
+      "path": "domain/private.srs",
+      "sha256": "3c2a2cff9a128a1f4fc30d4ce6f0928b613f4361287da8c20ccd1df0b0ff7e81",
+      "size": 696
     },
     {
       "package": "sukka",
@@ -602,13 +602,13 @@
     },
     {
       "package": "sukka",
-      "path": "ip/china-ip.json",
+      "path": "ip/cn.json",
       "sha256": "88dfd07f1313642deb3f88b5868879d2ebc3960911740b5f57634b56cad2313c",
       "size": 199169
     },
     {
       "package": "sukka",
-      "path": "ip/china-ip.srs",
+      "path": "ip/cn.srs",
       "sha256": "7a3d2f13f546da273dde3678a5f64520a60ff8e13537a22ca61f561ffe328abd",
       "size": 27493
     },
