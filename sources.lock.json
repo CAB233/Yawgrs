@@ -5,7 +5,7 @@
       "filename": "filter",
       "id": "filter",
       "package": "adguard",
-      "sha256": "0e488d56486b64d7a36dc13bd6f08ae254611b7253ebde2b0ffe07f7ee371418",
+      "sha256": "45f37ecf9402064d5b03bff39db37549cc01a3348a5a582c483435509b42c36c",
       "src": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt",
       "verified": false
     },
@@ -21,7 +21,7 @@
       "filename": "list",
       "id": "list",
       "package": "rpglist",
-      "sha256": "990e46311b530d8bf7f261029988aa15b0d7acc5600d732cea10d38fe6687fbe",
+      "sha256": "dbaf9523bb133faca04f3ab89b61b19275a8f809be54f657ff1ea38ca614448b",
       "src": "https://github.com/yxnan/block-l4d2-rpg-servers/releases/download/latest/rpglist.json",
       "verified": false
     },
@@ -29,7 +29,7 @@
       "filename": "archive",
       "id": "archive",
       "package": "sukka",
-      "sha256": "482280c892bef0d19ac95283533202360c664d6b2202f9ad9cc75e075202af83",
+      "sha256": "c50b9772e0a30bc74c4b0393e69e86e9a30bd49faab2faacd2ca60e9c9c75f41",
       "src": "https://api.github.com/repos/SukkaLab/ruleset.skk.moe/tarball",
       "verified": false
     },
@@ -37,7 +37,7 @@
       "filename": "dlc.dat",
       "id": "dlc",
       "package": "v2ray",
-      "sha256": "14eb82bb1147839bfcd2b0ffe91a5bc5ed4cf90d50337607cc93abe73a06b436",
+      "sha256": "5534f873d62dabddc245e169626f3c800893264047e411e48827ddfb5c726af6",
       "src": "https://github.com/v2fly/domain-list-community/releases/latest/download/dlc.dat",
       "verified": false
     },
@@ -45,7 +45,7 @@
       "filename": "geosite.dat",
       "id": "geosite",
       "package": "v2ray",
-      "sha256": "f49b374f424693ea38745aa6175acb6cc303c5ecf7b09980101b21ed8eebfce3",
+      "sha256": "5a4ad9371ef385389dbecc4ec5c9b10648c6f248b162acdac684f811701e9839",
       "src": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat",
       "verified": false
     },
