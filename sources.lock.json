@@ -5,7 +5,7 @@
       "filename": "filter",
       "id": "filter",
       "package": "adguard",
-      "sha256": "fcbf8ebb7d130f346da5359e45529aa78a20de6e69cb8be0fae9014ca3cf808e",
+      "sha256": "871c938be7608385687fb8021979369d2c65d18973c7ef5e084307e534c36b0c",
       "src": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt",
       "verified": false
     },
@@ -21,7 +21,7 @@
       "filename": "ipv4.txt",
       "id": "ipv4",
       "package": "cn",
-      "sha256": "a668cb239617aa0030370525889beffe825bb8489c4e7eae384332cdfa069ae8",
+      "sha256": "1fe330fcba3495f60b5cc20b1d3609ff0cb80310f0ca4a144e5aaafc7383f52f",
       "src": "https://raw.githubusercontent.com/misakaio/chnroutes2/master/chnroutes.txt",
       "verified": false
     },
@@ -29,7 +29,7 @@
       "filename": "ipv6.txt",
       "id": "ipv6",
       "package": "cn",
-      "sha256": "49b587b3d14d288173d647443b52b1f3e739b5fe0d64464f5dcc52a55800bce8",
+      "sha256": "0e13eb925d01cc8b1b1d3e40038bd9f135d95de17bc5d412392977a38af03bd8",
       "src": "https://raw.githubusercontent.com/gaoyifan/china-operator-ip/ip-lists/china6.txt",
       "verified": false
     },
@@ -45,7 +45,7 @@
       "filename": "dlc.dat",
       "id": "dlc",
       "package": "v2ray",
-      "sha256": "5534f873d62dabddc245e169626f3c800893264047e411e48827ddfb5c726af6",
+      "sha256": "1b9012ab376e142da68506385e4b0590abeb20a0deac0169293e1057fce8d949",
       "src": "https://github.com/v2fly/domain-list-community/releases/latest/download/dlc.dat",
       "verified": false
     },
@@ -53,7 +53,7 @@
       "filename": "geosite.dat",
       "id": "geosite",
       "package": "v2ray",
-      "sha256": "5a4ad9371ef385389dbecc4ec5c9b10648c6f248b162acdac684f811701e9839",
+      "sha256": "d4e197147c1017129a906a7f155050ccde0b291cf376f787071af3e805cc7d2c",
       "src": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat",
       "verified": false
     },

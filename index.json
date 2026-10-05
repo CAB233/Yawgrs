@@ -3,14 +3,14 @@
     {
       "package": "adguard",
       "path": "domain/adguard-dns-filter.srs",
-      "sha256": "b2b84dd15a22d8bf38f207f0646a924171913cf55741c220a79d6639d049c925",
-      "size": 1570787
+      "sha256": "abccc020e24c1460a1a1f49947520a01e19949d501b1deb21a128c420469f5f8",
+      "size": 1576386
     },
     {
       "package": "adguard",
       "path": "domain/adguard-dns-filter.txt",
-      "sha256": "fcbf8ebb7d130f346da5359e45529aa78a20de6e69cb8be0fae9014ca3cf808e",
-      "size": 4259960
+      "sha256": "871c938be7608385687fb8021979369d2c65d18973c7ef5e084307e534c36b0c",
+      "size": 4276248
     },
     {
       "package": "awavenue",
@@ -27,14 +27,14 @@
     {
       "package": "v2ray",
       "path": "domain/category-ads-all.json",
-      "sha256": "c4cc49084176924d7cc36d6d5173ad86eb4d0a8b3fcdc7f697f3495f16baad04",
-      "size": 5938523
+      "sha256": "b0156f86d81f9439a64d6b0eaa0b4be696c6f9551086c4c61929e8c4f5c7678e",
+      "size": 5957550
     },
     {
       "package": "v2ray",
       "path": "domain/category-ads-all.srs",
-      "sha256": "b19a4e85c6bda1b597cb116d9476f3332228ac5a9e03e24003ad185d52f652c2",
-      "size": 1629936
+      "sha256": "126523c5cbafb370a403c8542ab438dbd8a63dbf199c8d488eaf789432bdf2ee",
+      "size": 1634449
     },
     {
       "package": "v2ray",
@@ -51,14 +51,14 @@
     {
       "package": "v2ray",
       "path": "domain/geolocation-!cn.json",
-      "sha256": "106d4d09726e3073632900465f65ff7b658dcfe341c0fb2773e0de00c1afb8c9",
-      "size": 621419
+      "sha256": "61f190b10d52f737b224cf9d38f9c3f8db7c0eb6deac5156b26de612ff5267f5",
+      "size": 621455
     },
     {
       "package": "v2ray",
       "path": "domain/geolocation-!cn.srs",
-      "sha256": "a1b4978370914b9d597c78e167dc3ed522ae435fee5ca8047492251df10fe59c",
-      "size": 148248
+      "sha256": "4d7dffe870a767842014fa32d57bec99415fe1c56a5d14385fdb45a2e5f41b92",
+      "size": 148273
     },
     {
       "package": "v2ray",
@@ -87,13 +87,13 @@
     {
       "package": "cn",
       "path": "ip/cn.json",
-      "sha256": "ccec89a10e788f09ef34cede65d17849b1556859a7a32fa9e99c9e8fbe458631",
-      "size": 198757
+      "sha256": "b36efe82947a6ca01c98ee643a7527a24afa976ce0f840617c0bbd1530ced4ee",
+      "size": 198847
     },
     {
       "package": "cn",
       "path": "ip/cn.srs",
-      "sha256": "9f27555d22282ee3d5fc8e5ee70bcd9e5e0c681b6e685487bb9138f92fee20fe",
+      "sha256": "5a857d22d52f3532222f966b1aedf61d2630ab6e519eea936fe12e39273f9646",
       "size": 27430
     },
     {
