@@ -5,7 +5,7 @@
       "filename": "filter",
       "id": "filter",
       "package": "adguard",
-      "sha256": "5bdb2836f7f5e69194437b9d2cd36d937286147a1391c744037ef7f19a56540b",
+      "sha256": "81c52189db549fb4dbf53f4e8f848b99367b7c5d1a613780769e5cdfd92e4e48",
       "src": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt",
       "verified": false
     },
@@ -21,7 +21,7 @@
       "filename": "ipv4.txt",
       "id": "ipv4",
       "package": "cn",
-      "sha256": "662792deddded480b925c8a6ed9effc024e896cc57a87df8bad28a5a2f19865b",
+      "sha256": "2902e4044182e923afce4b60234e0afe6268f7e2bdbf08c2932f3327a7772cce",
       "src": "https://raw.githubusercontent.com/misakaio/chnroutes2/master/chnroutes.txt",
       "verified": false
     },
@@ -29,7 +29,7 @@
       "filename": "ipv6.txt",
       "id": "ipv6",
       "package": "cn",
-      "sha256": "9214caf3ddaa18ef843ce1e0f68b7c408464d31b094693ccd70dced7e50ee900",
+      "sha256": "0523edddd0a17751970e8e3b7e0fab804a9fd3dd048575812494800449ca6584",
       "src": "https://raw.githubusercontent.com/gaoyifan/china-operator-ip/ip-lists/china6.txt",
       "verified": false
     },

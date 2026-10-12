@@ -3,14 +3,14 @@
     {
       "package": "adguard",
       "path": "domain/adguard-dns-filter.srs",
-      "sha256": "afb0729412d595e9226fb6e38689f13992ec20f85f275e8443d65aae4e0a0fcc",
-      "size": 1606129
+      "sha256": "f4dfc3cc9b2f1c99cdbdc8a7e6bb3abb20c574b08725088dd23172fcbb0eb967",
+      "size": 1624591
     },
     {
       "package": "adguard",
       "path": "domain/adguard-dns-filter.txt",
-      "sha256": "5bdb2836f7f5e69194437b9d2cd36d937286147a1391c744037ef7f19a56540b",
-      "size": 4363286
+      "sha256": "81c52189db549fb4dbf53f4e8f848b99367b7c5d1a613780769e5cdfd92e4e48",
+      "size": 4412064
     },
     {
       "package": "awavenue",
@@ -87,14 +87,14 @@
     {
       "package": "cn",
       "path": "ip/cn.json",
-      "sha256": "5572b1d3c9806bb1d81adb83358dcee1c85ec421ff2b15dc5a0fce02f6ad735c",
-      "size": 199831
+      "sha256": "94b0c2d45115446017faf3ac63317e5492a4125938c286c679ce0a8e73d5b5da",
+      "size": 199687
     },
     {
       "package": "cn",
       "path": "ip/cn.srs",
-      "sha256": "51582b4a9338ccda400bc8987d56990f97cf0d9abe73681177200498dca4e753",
-      "size": 27512
+      "sha256": "cede1958ff4a5aa5fda7e5b947874a9c39530cb737261ff002310f83124534cd",
+      "size": 27507
     },
     {
       "package": "rpglist",
