@@ -3,38 +3,38 @@
     {
       "package": "adguard",
       "path": "domain/adguard-dns-filter.srs",
-      "sha256": "ca7a32d4c4522980f5b4661b4bfa2e002324d77cb194d50ecdaaf4da1110708b",
-      "size": 1644701
+      "sha256": "e7fb9cbff807eeecbc56d3535bef8979d4dbc46306ccf4af208c9553fa04263d",
+      "size": 1597861
     },
     {
       "package": "adguard",
       "path": "domain/adguard-dns-filter.txt",
-      "sha256": "480805e2a1deae304f33272f4721a8f135a313c0cc617944db772be64bf317c9",
-      "size": 4467484
+      "sha256": "fb91e48e02e7d2e0c580cfa38163e31aa572e5d87296ae401ea13ae5fe60bd7e",
+      "size": 4341633
     },
     {
       "package": "awavenue",
       "path": "domain/awavenue-ads-rule.srs",
-      "sha256": "2b8544dcbd316134a0a6b7129b091757b809a5ad70d0cc98be2c9701ed966bc1",
-      "size": 9081
+      "sha256": "e876f682562dbfea5145e1bb3e1186936f1418c8ac782168548dd5facb7e8582",
+      "size": 9135
     },
     {
       "package": "awavenue",
       "path": "domain/awavenue-ads-rule.txt",
-      "sha256": "e63c0ba4d838883a683034f3cbcebe7e00c4d99fb6d10bb130b2283e819976e2",
-      "size": 23211
+      "sha256": "fdf930d67659f6f1405c81e67c1fb7797145c54296c5ba0398729aa4d846808c",
+      "size": 23470
     },
     {
       "package": "v2ray",
       "path": "domain/category-ads-all.json",
-      "sha256": "8519ffa2d81cc08caf531d0058696c49b2d253c4e0c4600b5867d9f711db66e4",
-      "size": 6211983
+      "sha256": "69fda37975c377f3d2bd3d1567c0c72cd6987b8166daba49e16a010703cb7c0d",
+      "size": 6382983
     },
     {
       "package": "v2ray",
       "path": "domain/category-ads-all.srs",
-      "sha256": "7276e73b38fb7f04892960f6c503d421f3ac809edfef21e51d0f0820c15c34e8",
-      "size": 1701163
+      "sha256": "e89fa9440f14e27f18794e632fdd25855226459ec6c2f56dd36cd7d3511aac6f",
+      "size": 1748876
     },
     {
       "package": "v2ray",
@@ -51,26 +51,26 @@
     {
       "package": "v2ray",
       "path": "domain/geolocation-!cn.json",
-      "sha256": "a9a9d0ccfdfce6565e7415b513071115c61f2d439df641a3ea1b31d1899ead1b",
-      "size": 624113
+      "sha256": "87e8968799807466881eee11a67eba2dc4f075bd67ed54aa1c4a1727f5e7aa20",
+      "size": 625077
     },
     {
       "package": "v2ray",
       "path": "domain/geolocation-!cn.srs",
-      "sha256": "f10e0fc24d2afcfc4bf3668fed6a8d60ca91b8022bc13e220456dea2086f610c",
-      "size": 148824
+      "sha256": "ea4695ad8aa1b1550de282f2b4d9f140381b09a8b3f0965ee6d4bc0fbd1637f5",
+      "size": 148857
     },
     {
       "package": "v2ray",
       "path": "domain/geolocation-cn.json",
-      "sha256": "5f2e3072e899f29913aec03406a8bd9307eaee93ae98ed1363d9b2e60f094ae6",
-      "size": 185631
+      "sha256": "ff874bd4bb9e1af66eb2a0c03cc5f0de784ac632c9fde5eb9822fd2391807a3c",
+      "size": 186148
     },
     {
       "package": "v2ray",
       "path": "domain/geolocation-cn.srs",
-      "sha256": "64930fc06dee342d3d1506162e9a843be46dee46ef3589ec6d2f2882247630f3",
-      "size": 40012
+      "sha256": "619403af32d863fe958b6ba560838c5dc905b241ceaaeb70e2ef2569f922a89f",
+      "size": 40116
     },
     {
       "package": "v2ray",
@@ -87,26 +87,26 @@
     {
       "package": "cn",
       "path": "ip/cn.json",
-      "sha256": "956a35805678e95321f2f2f54a88cfcf4c031028be13edecebe3c582c4ecc2cf",
-      "size": 199528
+      "sha256": "51e2be9485e3f2122b757cdcb3005e7a1d0ec2ecb2830644705cd7ae5ae6b92f",
+      "size": 199603
     },
     {
       "package": "cn",
       "path": "ip/cn.srs",
-      "sha256": "a17b1edc053b33fa404a88bf971644499f035ba486a06795f89e286ad3bbac20",
-      "size": 27480
+      "sha256": "eb219bf8001492b4d96efc36f25134c59ca64df4e03c9ade6c72ab45677133b9",
+      "size": 27485
     },
     {
       "package": "rpglist",
       "path": "ip/l4d2-rpglist.json",
-      "sha256": "df260d53e2972dd9ec96237fec5db57e17b4c33d1e047e6c9bbf53ffefcce1c7",
-      "size": 989
+      "sha256": "5390f64294aa1782b7bb54f00da8a94f592e31adcdf8c8239976f9ed3f8a15fb",
+      "size": 961
     },
     {
       "package": "rpglist",
       "path": "ip/l4d2-rpglist.srs",
-      "sha256": "7cff74980f9de7b16d62b3ac5ffdc1db736f7cf833e5151b388fed34c2658308",
-      "size": 194
+      "sha256": "b3b56d317b4a3e159175fc70b06883be9d6dd6230da8c7a5e07defc2464c5e4a",
+      "size": 185
     }
   ],
   "schema": 1

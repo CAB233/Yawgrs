@@ -5,7 +5,7 @@
       "filename": "filter",
       "id": "filter",
       "package": "adguard",
-      "sha256": "480805e2a1deae304f33272f4721a8f135a313c0cc617944db772be64bf317c9",
+      "sha256": "fb91e48e02e7d2e0c580cfa38163e31aa572e5d87296ae401ea13ae5fe60bd7e",
       "src": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt",
       "verified": false
     },
@@ -13,7 +13,7 @@
       "filename": "filter",
       "id": "filter",
       "package": "awavenue",
-      "sha256": "e63c0ba4d838883a683034f3cbcebe7e00c4d99fb6d10bb130b2283e819976e2",
+      "sha256": "fdf930d67659f6f1405c81e67c1fb7797145c54296c5ba0398729aa4d846808c",
       "src": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/AWAvenue-Ads-Rule.txt",
       "verified": false
     },
@@ -21,7 +21,7 @@
       "filename": "ipv4.txt",
       "id": "ipv4",
       "package": "cn",
-      "sha256": "72c52099a689db42128f56fb8b5ec66b82906c5c30d0b336a295d66d43f27239",
+      "sha256": "4d75b8c56dce12d454b293d489ee4edd9c75449c9d8303b0917931c7fbce6764",
       "src": "https://raw.githubusercontent.com/misakaio/chnroutes2/master/chnroutes.txt",
       "verified": false
     },
@@ -29,7 +29,7 @@
       "filename": "ipv6.txt",
       "id": "ipv6",
       "package": "cn",
-      "sha256": "1aac98e6a3cf0a6fbae1dfc772fc33071edba0dd96fdfc7729fe88303eb8b54d",
+      "sha256": "a2f14c3d600dc7612638c51fd741d3d4cf4f115519436e05d4558d49e50664c9",
       "src": "https://raw.githubusercontent.com/gaoyifan/china-operator-ip/ip-lists/china6.txt",
       "verified": false
     },
@@ -37,7 +37,7 @@
       "filename": "list",
       "id": "list",
       "package": "rpglist",
-      "sha256": "74a44ba310251569f0455ff06f90c3a4535ff1783aae0022f75ed3ddfaedaa98",
+      "sha256": "0e003bee57547367a55304694160144ec0a5e6d4c47ca559e9c2a4bc237a7d38",
       "src": "https://github.com/yxnan/block-l4d2-rpg-servers/releases/download/latest/rpglist.json",
       "verified": false
     },
@@ -45,7 +45,7 @@
       "filename": "dlc.dat",
       "id": "dlc",
       "package": "v2ray",
-      "sha256": "37c030c086c57da4d0987c6be836f8ae4f8957cd904cfa0bc6bb6036bb61c816",
+      "sha256": "67044ef9912a7a8f5e13d9ee64361d8c966e9bc3b0936d7a0b705904bc416561",
       "src": "https://github.com/v2fly/domain-list-community/releases/latest/download/dlc.dat",
       "verified": false
     },
@@ -53,7 +53,7 @@
       "filename": "geosite.dat",
       "id": "geosite",
       "package": "v2ray",
-      "sha256": "3691de3874692fc8709686998c7627d030df3910d21f3d68232aaa0f1249dd2d",
+      "sha256": "e16ee9af893247f9c8b15c5259e5c0a6ae491b85ee351c22f1954e696ebb8997",
       "src": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat",
       "verified": false
     },
