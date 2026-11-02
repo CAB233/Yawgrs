@@ -3,14 +3,14 @@
     {
       "package": "adguard",
       "path": "domain/adguard-dns-filter.srs",
-      "sha256": "e7fb9cbff807eeecbc56d3535bef8979d4dbc46306ccf4af208c9553fa04263d",
-      "size": 1597861
+      "sha256": "b9bd84839a4f0ed6243c75996251787c1d769c86e0ea0a03e3073ec9f693e35b",
+      "size": 1656428
     },
     {
       "package": "adguard",
       "path": "domain/adguard-dns-filter.txt",
-      "sha256": "fb91e48e02e7d2e0c580cfa38163e31aa572e5d87296ae401ea13ae5fe60bd7e",
-      "size": 4341633
+      "sha256": "c5153f00f01ee9d37555cf523f5282710c14c7c0748210faa542ee0f7bf9973a",
+      "size": 4500729
     },
     {
       "package": "awavenue",
@@ -27,14 +27,14 @@
     {
       "package": "v2ray",
       "path": "domain/category-ads-all.json",
-      "sha256": "69fda37975c377f3d2bd3d1567c0c72cd6987b8166daba49e16a010703cb7c0d",
-      "size": 6382983
+      "sha256": "66bb25f66a4f4b89d23106d47077cf815fcb6129bf566c5e34a806ae65edf289",
+      "size": 6242211
     },
     {
       "package": "v2ray",
       "path": "domain/category-ads-all.srs",
-      "sha256": "e89fa9440f14e27f18794e632fdd25855226459ec6c2f56dd36cd7d3511aac6f",
-      "size": 1748876
+      "sha256": "0565c4972c764244aa055ac32c8ff401474fda0e3acb52e16ecc3b11256133fc",
+      "size": 1711941
     },
     {
       "package": "v2ray",
@@ -51,26 +51,26 @@
     {
       "package": "v2ray",
       "path": "domain/geolocation-!cn.json",
-      "sha256": "87e8968799807466881eee11a67eba2dc4f075bd67ed54aa1c4a1727f5e7aa20",
-      "size": 625077
+      "sha256": "561666d214adb8a154926e7eea09abcd5f32cff7d90e1a37b5242227f095dcfa",
+      "size": 625715
     },
     {
       "package": "v2ray",
       "path": "domain/geolocation-!cn.srs",
-      "sha256": "ea4695ad8aa1b1550de282f2b4d9f140381b09a8b3f0965ee6d4bc0fbd1637f5",
-      "size": 148857
+      "sha256": "f9a218c50718051c67079a114d46e967abe906cc8f909786307c09120bb1b9c8",
+      "size": 149058
     },
     {
       "package": "v2ray",
       "path": "domain/geolocation-cn.json",
-      "sha256": "ff874bd4bb9e1af66eb2a0c03cc5f0de784ac632c9fde5eb9822fd2391807a3c",
-      "size": 186148
+      "sha256": "b010eb29771d20130fc930221fd4e4035e1bf92ae92575922a011dea8d901ee5",
+      "size": 186922
     },
     {
       "package": "v2ray",
       "path": "domain/geolocation-cn.srs",
-      "sha256": "619403af32d863fe958b6ba560838c5dc905b241ceaaeb70e2ef2569f922a89f",
-      "size": 40116
+      "sha256": "e8d1c1a5034170308bc923e6808908c695048f2eaaf8a392501bbb9441a9f2b9",
+      "size": 40246
     },
     {
       "package": "v2ray",
@@ -87,26 +87,26 @@
     {
       "package": "cn",
       "path": "ip/cn.json",
-      "sha256": "51e2be9485e3f2122b757cdcb3005e7a1d0ec2ecb2830644705cd7ae5ae6b92f",
-      "size": 199603
+      "sha256": "1aebfdf8024b70866c75b391b3805b49dfe8ff333fa08663e84633e9cdd46a1d",
+      "size": 199403
     },
     {
       "package": "cn",
       "path": "ip/cn.srs",
-      "sha256": "eb219bf8001492b4d96efc36f25134c59ca64df4e03c9ade6c72ab45677133b9",
-      "size": 27485
+      "sha256": "35d01b0bb1d0281d314ea8c0e549bff58ac1a6b43f4cd0e38367f8671f14da02",
+      "size": 27432
     },
     {
       "package": "rpglist",
       "path": "ip/l4d2-rpglist.json",
-      "sha256": "5390f64294aa1782b7bb54f00da8a94f592e31adcdf8c8239976f9ed3f8a15fb",
-      "size": 961
+      "sha256": "8a3c6d781d92cdfdad043c44cc27d84e3eafa4ae52a722a3a81276306de44221",
+      "size": 905
     },
     {
       "package": "rpglist",
       "path": "ip/l4d2-rpglist.srs",
-      "sha256": "b3b56d317b4a3e159175fc70b06883be9d6dd6230da8c7a5e07defc2464c5e4a",
-      "size": 185
+      "sha256": "46ea134de5bf45049c0d396655e2fe4da6b85c64f1760f6275fc3b7beb51611f",
+      "size": 178
     }
   ],
   "schema": 1
